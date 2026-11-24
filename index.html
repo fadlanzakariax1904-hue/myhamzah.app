@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#168653">
-<title>Majelis Asy-Syifaa wal Marzuuqiyyah</title>
+<meta name="theme-color" content="#070c16">
+<title>MY HAMZA APP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
@@ -44,6 +44,7 @@ h3{margin:25px 2px 12px;font-size:12px;letter-spacing:1.25px;text-transform:uppe
 .welcome-line{padding:5px 3px 15px}
 .welcome-line .eyebrow{font-size:10px;letter-spacing:2px;color:#a18a60;font-weight:800}
 .welcome-line p{margin:3px 0 0;color:#66796f;font-family:Georgia,"Times New Roman",serif;font-size:17px}
+.welcome-line .editme{border:0;background:none;padding:6px 0 0;font:inherit;font-size:13px;font-weight:600;color:var(--emerald);cursor:pointer;font-family:var(--sans,inherit)}
 .hero{
   color:#fffdf4;position:relative;isolation:isolate;overflow:hidden;min-height:230px;
   border:1px solid rgba(227,211,174,.22);border-radius:27px;padding:23px 22px 21px;
@@ -105,34 +106,74 @@ nav button{border:0;background:transparent;font:inherit;font-size:9px;letter-spa
 nav button .nav-icon{width:22px;height:22px;display:grid;place-items:center}
 nav button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 nav button.on{background:var(--forest);color:#f7efdc;box-shadow:0 5px 13px rgba(7,60,53,.18)}
-/* Intro screen */
-#splash{position:fixed;inset:0;z-index:100;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:30px 25px calc(30px + env(safe-area-inset-bottom));color:#fffdf4;text-align:left;background:radial-gradient(ellipse at 75% 22%,rgba(194,164,106,.20),transparent 25%),radial-gradient(ellipse at 8% 82%,rgba(28,128,103,.25),transparent 35%),linear-gradient(150deg,#0b5b4e 0%,#073f39 48%,#042b2b 100%);transition:opacity .45s ease,visibility .45s ease}
-#splash:before,#splash:after{content:"";position:absolute;border:1px solid rgba(223,202,159,.18);border-radius:50%;pointer-events:none}
-#splash:before{width:78vw;height:78vw;max-width:570px;max-height:570px;right:-27vw;top:-20vw;box-shadow:0 0 0 17px rgba(223,202,159,.035),0 0 0 40px rgba(223,202,159,.025)}
-#splash:after{width:62vw;height:62vw;max-width:450px;max-height:450px;left:-30vw;bottom:-21vw;box-shadow:0 0 0 15px rgba(223,202,159,.035)}
+
+/* ===== SPLASH + PERKENALAN (gaya gelap, orb) ===== */
+#splash{
+  position:fixed;inset:0;z-index:100;overflow-x:hidden;overflow-y:auto;color:#fff;
+  display:flex;flex-direction:column;align-items:center;
+  padding:calc(34px + env(safe-area-inset-top)) 26px calc(26px + env(safe-area-inset-bottom));
+  background:
+    linear-gradient(180deg,rgba(5,9,18,.30) 0%,rgba(5,9,18,.55) 48%,rgba(4,7,14,.92) 100%),
+    radial-gradient(ellipse at 72% 4%,rgba(198,166,106,.20),transparent 42%),
+    url("bg-hamza.jpg") center top/cover no-repeat,
+    #070c16;
+  transition:opacity .5s ease,visibility .5s ease
+}
 #splash.leaving{opacity:0;visibility:hidden;pointer-events:none}
-.splash-inner{position:relative;z-index:2;width:min(100%,430px);margin:auto;display:flex;flex-direction:column;align-items:flex-start}
-.splash-mark{width:76px;height:76px;border-radius:25px;display:grid;place-items:center;background:linear-gradient(145deg,#117462,#073c37);border:1px solid rgba(232,213,173,.25);box-shadow:0 13px 35px rgba(0,0,0,.17);margin-bottom:23px;color:#f2e5c7}
-.splash-mark svg{width:47px;height:47px}
-.splash-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#d7c49b;font-weight:800;margin-bottom:8px}
-.splash-title{font-family:Georgia,"Times New Roman",serif;font-size:clamp(31px,8vw,43px);line-height:1.07;letter-spacing:-1.2px;color:#fff8e9;max-width:390px}
-.splash-title span{display:block;color:#e5d4ad;font-style:italic;font-weight:400}
-.splash-copy{font-size:13px;line-height:1.75;color:rgba(255,250,237,.75);max-width:300px;margin:15px 0 27px}
-.splash-rule{display:flex;align-items:center;gap:9px;width:120px;margin:0 0 27px;color:var(--gold)}
-.splash-rule:before,.splash-rule:after{content:"";height:1px;background:rgba(221,197,147,.65);flex:1}
-.splash-rule span{font-size:10px}
-#enterApp{width:100%;max-width:290px;border:1px solid rgba(242,226,190,.35);border-radius:14px;padding:15px 17px;background:linear-gradient(135deg,#e6d7b7,#cbb17c);color:#173e35;font:inherit;font-size:12px;font-weight:850;letter-spacing:.25px;cursor:pointer;box-shadow:0 12px 25px rgba(0,0,0,.17);display:flex;align-items:center;justify-content:space-between}
-#enterApp span:last-child{font-size:18px;line-height:1}
-.splash-foot{position:relative;z-index:2;margin-top:48px;color:rgba(239,230,208,.55);font-size:9px;letter-spacing:1.5px;text-transform:uppercase}
-.splash-skyline{position:absolute;z-index:1;left:0;right:0;bottom:0;width:100%;height:31vh;min-height:170px;opacity:.22;pointer-events:none}
-.splash-skyline path{fill:#d9c69e}
-@media(min-width:700px){body{padding-bottom:110px}.top{padding-left:22px;padding-right:22px}main{padding-left:22px;padding-right:22px}.hs{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}}
-@media(max-width:370px){.top{padding-left:15px;padding-right:15px}.top b{font-size:13px;max-width:190px}.brandmark{width:38px;height:38px}.top>span{font-size:9px;padding:6px 8px}.hero{padding:20px 18px}.hero h2{font-size:22px}.cd{font-size:36px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.sp-stage{flex:1;width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:0}
+.sp-title{font-family:var(--sans,"Inter",sans-serif);font-weight:600;font-size:clamp(30px,9vw,40px);line-height:1.12;letter-spacing:-1.1px;margin:0;text-shadow:0 2px 20px rgba(0,0,0,.45)}
+.sp-title .l1{display:block;color:#8d8884}
+.sp-title .l2{display:block;color:#fff}
+.sp-title.swap{animation:spFade .55s ease both}
+@keyframes spFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+.orb-wrap{position:relative;display:grid;place-items:center;margin:clamp(26px,6vh,48px) 0;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.orb-wrap:before{content:"";position:absolute;width:220%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(150,86,70,.50) 0%,rgba(105,56,56,.26) 36%,transparent 66%);animation:glow 5s ease-in-out infinite;pointer-events:none}
+@keyframes glow{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.07)}}
+.orb{position:relative;width:min(250px,62vw);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#cfa9dd;box-shadow:0 0 70px 14px rgba(226,126,96,.22),inset 0 0 40px rgba(255,255,255,.28);transition:width .7s cubic-bezier(.2,.8,.2,1);isolation:isolate}
+.orb i{position:absolute;border-radius:50%;filter:blur(26px);will-change:transform}
+.orb .b1{width:62%;height:62%;left:-6%;top:22%;background:#f5b83d;animation:d1 7s ease-in-out infinite}
+.orb .b2{width:58%;height:58%;right:-8%;top:30%;background:#c8284f;animation:d2 8s ease-in-out infinite}
+.orb .b3{width:60%;height:60%;right:6%;top:-12%;background:#a68be6;animation:d3 9s ease-in-out infinite}
+.orb .b4{width:56%;height:56%;left:12%;bottom:-14%;background:#f27c70;animation:d4 7.5s ease-in-out infinite}
+.orb .b5{width:48%;height:48%;left:24%;top:26%;background:#ffd98a;opacity:.85;animation:d5 6s ease-in-out infinite}
+@keyframes d1{0%,100%{transform:translate(0,0)}50%{transform:translate(22%,-14%)}}
+@keyframes d2{0%,100%{transform:translate(0,0)}50%{transform:translate(-26%,12%)}}
+@keyframes d3{0%,100%{transform:translate(0,0)}50%{transform:translate(-18%,22%)}}
+@keyframes d4{0%,100%{transform:translate(0,0)}50%{transform:translate(20%,-20%)}}
+@keyframes d5{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-10%,10%) scale(1.25)}}
+.orb-icon{position:absolute;inset:0;display:grid;place-items:center;z-index:3;pointer-events:none}
+.orb-icon svg{width:23%;height:23%;stroke:#f6d77c;fill:none;stroke-width:2.6;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(245,184,61,.6));animation:spin 28s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#splash.compact .orb{width:min(128px,34vw)}
+#splash.compact .orb-wrap{margin:clamp(16px,3vh,26px) 0}
+
+.sp-body{width:100%;min-height:96px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:12px}
+.sp-body.swap{animation:spFade .5s ease both}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:99px;font-size:16px;font-weight:500;color:#f4f1ec}
+.spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.28);border-top-color:#fff;animation:spin .8s linear infinite}
+.sp-foot{width:100%;max-width:340px;margin:20px auto 0;text-align:center;font-size:15px;line-height:1.5;color:#9a958f;min-height:46px}
+.sp-in{width:100%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;padding:16px 18px;font:inherit;font-size:17px;color:#fff;text-align:center;outline:none;transition:border-color .2s,box-shadow .2s}
+.sp-in::placeholder{color:#7d7a76}
+.sp-in:focus{border-color:rgba(232,200,130,.7);box-shadow:0 0 0 4px rgba(232,200,130,.12)}
+.sp-btn{width:100%;border:0;border-radius:16px;padding:16px 18px;font:inherit;font-size:16px;font-weight:650;color:#1d1a12;background:linear-gradient(135deg,#f0dfb4,#cdae74);box-shadow:0 12px 28px rgba(0,0,0,.28);cursor:pointer;transition:transform .15s,opacity .2s}
+.sp-btn:active{transform:translateY(1px)}
+.sp-btn:disabled{opacity:.38;cursor:default}
+.sp-btn.ghost{background:rgba(255,255,255,.07);color:#f4f1ec;border:1px solid rgba(255,255,255,.18);box-shadow:none}
+.sp-skip{border:0;background:none;color:#8d8884;font:inherit;font-size:14px;padding:6px;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;width:100%}
+.chip{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#f4f1ec;font:inherit;font-size:15px;font-weight:500;padding:11px 18px;border-radius:99px;cursor:pointer;transition:all .2s}
+.chip.on{background:linear-gradient(135deg,#f0dfb4,#cdae74);color:#1d1a12;border-color:transparent;font-weight:650}
+.sp-dots{display:flex;gap:7px;justify-content:center;margin-bottom:6px;height:6px}
+.sp-dots span{width:6px;height:6px;border-radius:99px;background:rgba(255,255,255,.22);transition:all .3s}
+.sp-dots span.on{width:20px;background:#e3cda0}
+.sp-note{font-size:13px;color:#8d8884;margin:2px 0 0}
+
 /* ===== TIPOGRAFI: Inter ===== */
 :root{--sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
 body{font:15px/1.6 var(--sans);letter-spacing:-.003em}
-.top b,h2,.welcome-line p,.hero h2,.splash-title,.ar.big i{font-family:var(--sans)}
+#splash{font-family:var(--sans)}
+.top b,h2,.welcome-line p,.hero h2,.ar.big i{font-family:var(--sans)}
 .muted{font-size:13px}
 .top b{font-size:16px;font-weight:700;letter-spacing:-.2px}
 .brand-copy small{font-size:11px;letter-spacing:.6px;font-weight:600}
@@ -158,27 +199,25 @@ h3{font-size:16px;font-weight:650;letter-spacing:-.1px;text-transform:none;color
 .tag{font-size:11px;letter-spacing:.4px;font-weight:700}
 .more{font-size:14px;font-weight:650}
 nav button{font-size:11px;font-weight:600;letter-spacing:0}
-.splash-eyebrow{font-size:12px;letter-spacing:1.5px;font-weight:600}
-.splash-title{font-size:clamp(30px,8vw,40px);font-weight:700;letter-spacing:-1px;line-height:1.12}
-.splash-title span{font-style:normal;font-weight:500}
-.splash-copy{font-size:15px}
-#enterApp{font-size:15px;font-weight:650;letter-spacing:0}
-.splash-foot{font-size:11px;letter-spacing:1px}
-@media(max-width:370px){.top b{font-size:14px}.top>span{font-size:11px}.hero h2{font-size:22px}.cd{font-size:34px}}
+@media(min-width:700px){body{padding-bottom:110px}.top{padding-left:22px;padding-right:22px}main{padding-left:22px;padding-right:22px}.hs{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}}
+@media(max-width:370px){.top{padding-left:15px;padding-right:15px}.top b{font-size:14px;max-width:190px}.brandmark{width:38px;height:38px}.top>span{font-size:11px;padding:6px 8px}.hero{padding:20px 18px}.hero h2{font-size:22px}.cd{font-size:34px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
-<div id="splash" role="dialog" aria-modal="true" aria-label="Selamat datang di Majelis Asy-Syifaa wal Marzuuqiyyah">
-  <div class="splash-inner">
-    <div class="splash-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M32 7c-2.2 7-11.5 10.7-11.5 22.6v10.6h23V29.6C43.5 17.7 34.2 14 32 7Z" fill="currentColor"/><path d="M14 40h36l-4.4 7H18.4L14 40Z" fill="currentColor"/><path d="M25 51h14M32 3v4M7 33c3.3 0 5-1.9 5-4.8M57 33c-3.3 0-5-1.9-5-4.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M7 57 57 8" stroke="#d9c391" stroke-width="2.6" stroke-linecap="round"/></svg></div>
-    <div class="splash-eyebrow">MAJELIS ILMU & DZIKIR</div>
-    <div class="splash-title">Majelis Asy-Syifaa <span>wal Marzuuqiyyah</span></div>
-    <p class="splash-copy">Ruang untuk mendekatkan diri, memperluas ilmu, dan menjaga kebersamaan dalam kebaikan.</p>
-    <div class="splash-rule"><span>✦</span></div>
-    <button id="enterApp" type="button"><span>MASUK KE APLIKASI</span><span>→</span></button>
-    <div class="splash-foot">Bersama dalam doa dan kebaikan</div>
+<div id="splash" role="dialog" aria-modal="true" aria-label="Selamat datang di MY HAMZA APP">
+  <div class="sp-stage">
+    <div class="sp-dots" id="spDots" aria-hidden="true"></div>
+    <h1 class="sp-title" id="spTitle"><span class="l1">Selamat datang di</span><span class="l2">MY HAMZA APP</span></h1>
+    <div class="orb-wrap">
+      <div class="orb" aria-hidden="true">
+        <i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i>
+        <div class="orb-icon"><svg viewBox="0 0 48 48"><rect x="10" y="10" width="28" height="28" rx="1.5"/><rect x="10" y="10" width="28" height="28" rx="1.5" transform="rotate(45 24 24)"/></svg></div>
+      </div>
+    </div>
+    <div class="sp-body" id="spBody"></div>
   </div>
-  <svg class="splash-skyline" viewBox="0 0 600 230" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 220h600v10H0zM35 220v-44h15v44m-21-44 28 0-14-26Zm42 44v-61h18v61m-23-61 32 0-16-18Zm33 61v-36h22v36m-28-36 39 0-19-27Zm62 0c0-51 35-89 73-89s73 38 73 89v89H172Zm47 0v-68c0-20 13-36 26-36s26 16 26 36v68Zm49-157c-3-16 7-28 23-40 16 12 26 24 23 40Zm20-43h6v-12h-6Zm-7 3h20v5h-20Zm120 197v-124h18v124m-26-124 35 0-17-27Zm44 124v-159h21v159m-28-159 38 0-19-29Zm-3-29c-3-20 6-36 22-49 17 13 26 29 23 49Zm19-54h6v-13h-6Z"/></svg>
+  <p class="sp-foot" id="spFoot"></p>
 </div>
 <header class="top">
   <div class="brand-lockup">
@@ -189,7 +228,7 @@ nav button{font-size:11px;font-weight:600;letter-spacing:0}
 </header>
 <main>
   <section id="v-home" class="view">
-    <div class="welcome-line"><span class="eyebrow">ASSALAMU’ALAIKUM</span><p>Temukan ketenangan dalam setiap waktu.</p></div>
+    <div class="welcome-line"><span class="eyebrow">ASSALAMU’ALAIKUM</span><p id="welcomeText">Temukan ketenangan dalam setiap waktu.</p><button class="editme" id="editProfile" type="button">Ubah data saya</button></div>
     <div class="hero">
       <small>WAKTU SHOLAT BERIKUTNYA</small>
       <small class="locName"></small>
@@ -242,12 +281,12 @@ nav button{font-size:11px;font-weight:600;letter-spacing:0}
 const CFG={
   API:'https://script.google.com/macros/s/AKfycby23ClCY10x2QEQnGxSgVZnMpZ1YFpXBlN_F9EY0aMuyyPW5JbfcPmBbK8HrIFKZr6y/exec',
   NAME:'Majelis Asy-Syifaa wal Marzuuqiyyah',
+  APP:'MY HAMZA APP',
   CITY:{n:'Bandung',lat:-6.9175,lng:107.6191}
 };
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 $('#appName').textContent=CFG.NAME;
-const splash=$('#splash');$('#enterApp').addEventListener('click',()=>{splash.classList.add('leaving');setTimeout(()=>{splash.classList.add('hidden');splash.setAttribute('aria-hidden','true')},460)});
 
 /* ---------- navigasi ---------- */
 function go(v){
@@ -287,13 +326,17 @@ function tick(){
   $$('#timeList .row').forEach(r=>r.classList.toggle('next',r.dataset.k===nx[0]));
 }
 setInterval(tick,1000);
-$('#gps').addEventListener('click',()=>{
-  if(!navigator.geolocation)return alert('Perangkat tidak mendukung lokasi.');
+function askGPS(onOk,onFail){
+  if(!navigator.geolocation){onFail&&onFail('unsupported');return}
   navigator.geolocation.getCurrentPosition(p=>{
     loc={n:'Lokasi saya',lat:p.coords.latitude,lng:p.coords.longitude};
     try{localStorage.setItem('loc',JSON.stringify(loc))}catch(e){}
-    showLoc();loadTimes();updQibla();
-  },()=>alert('Izin lokasi ditolak. Jadwal tetap memakai '+loc.n+'.'),{timeout:10000});
+    showLoc();loadTimes();updQibla();onOk&&onOk();
+  },()=>{onFail&&onFail('denied')},{timeout:10000});
+}
+$('#gps').addEventListener('click',()=>{
+  if(!navigator.geolocation)return alert('Perangkat tidak mendukung lokasi.');
+  askGPS(null,()=>alert('Izin lokasi ditolak. Jadwal tetap memakai '+loc.n+'.'));
 });
 
 /* ---------- kiblat ---------- */
@@ -389,7 +432,113 @@ async function loadNews(){
   }
 }
 
-showLoc();loadTimes();loadNews();updQibla();
+/* ---------- profil user (disimpan di perangkat) ---------- */
+const PKEY='hamzaUser';
+let user={name:'',title:'',done:false};
+try{const u=JSON.parse(localStorage.getItem(PKEY)||'null');if(u&&typeof u==='object')user={name:String(u.name||''),title:String(u.title||''),done:!!u.done}}catch(e){}
+const saveUser=()=>{try{localStorage.setItem(PKEY,JSON.stringify(user))}catch(e){}};
+const dispName=()=>[user.title,user.name].filter(Boolean).join(' ').trim();
+function applyUser(){
+  const d=dispName();
+  $('#welcomeText').textContent=d?`${d}, temukan ketenangan dalam setiap waktu.`:'Temukan ketenangan dalam setiap waktu.';
+  $('#editProfile').classList.toggle('hidden',!user.done);
+}
+
+/* ---------- splash + alur perkenalan ---------- */
+const splash=$('#splash'),spTitle=$('#spTitle'),spBody=$('#spBody'),spFoot=$('#spFoot'),spDots=$('#spDots');
+const STEPS=['name','title','place'];
+let timers=[];
+const later=(fn,ms)=>{const t=setTimeout(fn,ms);timers.push(t);return t};
+const clearTimers=()=>{timers.forEach(clearTimeout);timers=[]};
+function setTitle(l1,l2){
+  spTitle.innerHTML=`<span class="l1">${esc(l1)}</span><span class="l2">${esc(l2)}</span>`;
+  spTitle.classList.remove('swap');void spTitle.offsetWidth;spTitle.classList.add('swap');
+}
+function setBody(html,foot,compact){
+  spBody.innerHTML=html;spBody.classList.remove('swap');void spBody.offsetWidth;spBody.classList.add('swap');
+  spFoot.textContent=foot||'';splash.classList.toggle('compact',!!compact);
+  spDots.innerHTML='';
+}
+function setDots(i){spDots.innerHTML=STEPS.map((_,k)=>`<span class="${k===i?'on':''}"></span>`).join('')}
+const pillHTML=t=>`<div class="pill"><span class="spin"></span><span id="pillTxt">${esc(t)}</span></div>`;
+
+function showSplash(step){
+  clearTimers();
+  splash.classList.remove('hidden','leaving');splash.removeAttribute('aria-hidden');
+  splash.scrollTop=0;step?stepView(step):boot();
+}
+function enterApp(){
+  clearTimers();applyUser();
+  splash.classList.add('leaving');
+  setTimeout(()=>{splash.classList.add('hidden');splash.setAttribute('aria-hidden','true')},520);
+  go('home');
+}
+function boot(){
+  setTitle('Selamat datang di',CFG.APP);
+  setBody(pillHTML('Menyiapkan aplikasi'),'Ruang ilmu, dzikir, dan kebersamaan dalam satu genggaman.',false);
+  later(()=>user.done?welcomeBack():stepView('name'),2700);
+}
+function welcomeBack(){
+  setTitle('Selamat datang kembali,',dispName()||CFG.APP);
+  setBody(pillHTML('Membuka beranda'),'Semoga hari Anda penuh keberkahan.',false);
+  later(enterApp,1900);
+}
+function stepView(s){
+  clearTimers();
+  if(s==='name'){
+    setTitle('Sebelum mulai,','siapa nama Anda?');
+    setBody(`<input class="sp-in" id="inName" type="text" maxlength="30" autocomplete="given-name" placeholder="Ketik nama panggilan" value="${esc(user.name)}"><button class="sp-btn" id="goName" type="button">Lanjut</button><button class="sp-skip" id="skipName" type="button">Lewati</button>`,
+      'Agar kami bisa menyapa Anda dengan hangat.',true);
+    setDots(0);
+    const inp=$('#inName'),btn=$('#goName');
+    const chk=()=>{btn.disabled=inp.value.trim().length<2};chk();
+    inp.addEventListener('input',chk);
+    const next=()=>{if(inp.value.trim().length<2)return;user.name=inp.value.trim().replace(/\s+/g,' ');stepView('title')};
+    btn.addEventListener('click',next);
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')next()});
+    $('#skipName').addEventListener('click',()=>{user.name='';user.title='';stepView('place')});
+  }else if(s==='title'){
+    setTitle('Senang bertemu,',user.name+'.');
+    const T=['Akhi','Ukhti','Bapak','Ibu','Kak','Tanpa sapaan'];
+    setBody(`<div class="chips" id="chips">${T.map(t=>`<button type="button" class="chip${(user.title===t||(!user.title&&t==='Tanpa sapaan'&&user._t))?' on':''}" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div><p class="sp-note">Pilih sapaan yang nyaman untuk Anda.</p><button class="sp-btn" id="goTitle" type="button" disabled>Lanjut</button>`,
+      'Sapaan ini hanya dipakai untuk menyapa Anda di beranda.',true);
+    setDots(1);
+    let pick=user.title?user.title:(user._t?'Tanpa sapaan':'');const btn=$('#goTitle');btn.disabled=!pick;
+    $('#chips').addEventListener('click',e=>{
+      const c=e.target.closest('.chip');if(!c)return;pick=c.dataset.t;
+      $$('#chips .chip').forEach(x=>x.classList.toggle('on',x===c));btn.disabled=false;
+    });
+    btn.addEventListener('click',()=>{user._t=pick==='Tanpa sapaan';user.title=pick==='Tanpa sapaan'?'':pick;stepView('place')});
+  }else if(s==='place'){
+    setTitle('Di mana Anda','menunaikan sholat?');
+    setBody(`<button class="sp-btn" id="useGps" type="button">📍 Gunakan lokasi saya</button><button class="sp-btn ghost" id="useCity" type="button">Pakai ${esc(CFG.CITY.n)} dulu</button><p class="sp-note" id="gpsMsg"></p>`,
+      'Untuk jadwal sholat dan arah kiblat yang tepat. Data tersimpan di perangkat Anda saja.',true);
+    setDots(2);
+    $('#useGps').addEventListener('click',()=>{
+      const b=$('#useGps');b.disabled=true;b.textContent='Mencari lokasi…';
+      askGPS(()=>finish(),()=>{b.disabled=false;b.textContent='📍 Coba lagi';$('#gpsMsg').textContent='Izin lokasi belum diberikan. Anda bisa coba lagi atau pakai '+CFG.CITY.n+'.'});
+    });
+    $('#useCity').addEventListener('click',()=>finish());
+  }
+}
+function finish(){
+  clearTimers();delete user._t;user.done=true;saveUser();
+  setTitle('Menyiapkan untuk',dispName()||'Anda');
+  setBody(pillHTML('Menyusun jadwal sholat'),'Menyatukan waktu, arah, dan ayat dalam satu aplikasi.',false);
+  const msgs=['Menghitung arah kiblat','Menyiapkan beranda'];
+  msgs.forEach((m,i)=>later(()=>{const p=$('#pillTxt');if(p)p.textContent=m},1000*(i+1)));
+  later(enterApp,3000);
+}
+$('#editProfile').addEventListener('click',()=>{go('home');showSplash('name')});
+splash.addEventListener('click',e=>{
+  /* ketuk layar pembuka (tahap boot / sambutan) untuk melewati animasi */
+  if(e.target.closest('button,input'))return;
+  if($('#pillTxt')&&!$('#goName')&&!$('#goTitle')&&!$('#useGps')){
+    if(user.done&&spTitle.textContent.includes('kembali'))enterApp();
+  }
+});
+
+showLoc();loadTimes();loadNews();updQibla();applyUser();boot();
 </script>
 </body>
 </html>
