@@ -426,6 +426,39 @@ nav button.on{background:rgba(16,59,54,.08);color:#103B36}
 @keyframes bootBar{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
 @media(prefers-reduced-motion:reduce){.boot-ring{display:none}}
 
+/* ===== HEADER STICKY + CAROUSEL NGAJI ===== */
+.top{position:sticky;top:0;z-index:40;padding-top:calc(12px + env(safe-area-inset-top));padding-bottom:12px;margin-bottom:12px}
+.brandmark img{width:28px;height:28px;object-fit:contain}
+.ngaji{margin:2px 0 6px}
+.ng-head{display:flex;align-items:baseline;justify-content:space-between;margin:4px 2px 10px}
+.ng-head h3{margin:0}
+.ng-count{font-size:12px;color:#8e8e93}
+.ng-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scroll-padding:0 17px;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;margin:0 -17px;padding:2px 17px 8px;scrollbar-width:none}
+.ng-track::-webkit-scrollbar{display:none}
+@media(min-width:700px){.ng-track{margin:0 -22px;padding-left:22px;padding-right:22px;scroll-padding:0 22px}}
+.ng-track .sk{flex:0 0 86%;max-width:420px;margin:0;scroll-snap-align:start}
+.ng-card{flex:0 0 86%;max-width:420px;scroll-snap-align:start;background:#fff;border-radius:22px;padding:16px 16px 14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05);animation:fadeUp 240ms var(--ease) backwards;transition:transform 180ms var(--ease)}
+.ng-card:active{transform:scale(.985)}
+.ng-top{display:flex;align-items:center;justify-content:space-between}
+.ng-tag{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:#A98B4F}
+.ng-badge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:99px;background:#103B36;color:#fff}
+.ng-badge.soft{background:rgba(201,169,106,.18);color:#8a6d33}
+.ng-card h4{margin:0;font-size:17px;line-height:1.3;font-weight:650;color:#1D1D1F;letter-spacing:-.2px}
+.ng-when,.ng-meta{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#3a3a3c}
+.ng-when{padding-bottom:10px;border-bottom:.5px solid #e5e5ea}
+.ng-when span,.ng-meta span{display:flex;align-items:center;gap:8px}
+.ng-card svg{width:15px;height:15px;flex:none;stroke:#103B36;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ng-meta svg{stroke:#8e8e93}
+.ng-card p{margin:0;font-size:12.5px;line-height:1.5;color:#6c6c70;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ng-dots{display:flex;justify-content:center;gap:6px;margin-top:6px;min-height:6px}
+.ng-dots i{width:6px;height:6px;border-radius:99px;background:#c7c7cc;transition:width 200ms var(--ease),background-color 200ms var(--ease)}
+.ng-dots i.on{width:18px;background:#103B36}
+.ng-empty{flex:0 0 100%;scroll-snap-align:start;display:flex;align-items:center;gap:14px;background:#fff;border-radius:22px;padding:18px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+.ng-empty .ic{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:rgba(201,169,106,.16);color:#A98B4F;flex:none}
+.ng-empty svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ng-empty b{display:block;font-size:15px;color:#1D1D1F}
+.ng-empty small{display:block;font-size:12.5px;color:#6c6c70;margin:2px 0 8px}
+
 </style>
 </head>
 <body>
@@ -447,13 +480,18 @@ nav button.on{background:rgba(16,59,54,.08);color:#103B36}
 </div>
 <header class="top">
   <div class="brand-lockup">
-    <div class="brandmark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 5c-1.7 5.4-8.6 8.2-8.6 17.3v8.1h17.2v-8.1C32.6 13.2 25.7 10.4 24 5Z" fill="currentColor"/><path d="M11 31.5h26l-3.2 5.2H14.2L11 31.5Z" fill="currentColor"/><path d="M19 39.5h10M24 2v3M8 25.5c2.1 0 3.2-1.2 3.2-3.1M40 25.5c-2.1 0-3.2-1.2-3.2-3.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M6 42 42 7" stroke="#d5bd8e" stroke-width="2" stroke-linecap="round"/></svg></div>
+    <div class="brandmark" aria-hidden="true"><img src="logo.png" alt=""></div>
     <div class="brand-copy"><b id="appName"></b><small>Ruang Ibadah & Kebersamaan</small></div>
   </div>
   <span id="hijri"></span>
 </header>
 <main>
   <section id="v-home" class="view">
+    <div class="ngaji">
+  <div class="ng-head"><h3>Jadwal ngaji</h3><span class="ng-count" id="ngCount"></span></div>
+  <div class="ng-track" id="ngTrack"></div>
+  <div class="ng-dots" id="ngDots"></div>
+</div>
     <div class="welcome-line"><span class="eyebrow">ASSALAMU’ALAIKUM</span><p id="welcomeText">Temukan ketenangan dalam setiap waktu.</p><div class="wl-actions"><span class="rolebadge hidden" id="roleBadge"></span><button class="editme" id="editProfile" type="button">Ubah data saya</button></div></div>
     <div class="hero">
       <small>WAKTU SHOLAT BERIKUTNYA</small>
@@ -688,6 +726,8 @@ function bridge(action,data={}){
     pend[id]={ok,t};f.submit();setTimeout(()=>f.remove(),1000);
   });
 }
+let bq=Promise.resolve();const _bridge=bridge;
+bridge=(a,d)=>{const p=bq.then(()=>_bridge(a,d));bq=p.catch(()=>{});return p};
 addEventListener('message',e=>{
   const m=e.data;if(!m||m.source!=='HAMZA_APP'||!m.requestId)return;
   const p=pend[m.requestId];if(!p)return;clearTimeout(p.t);delete pend[m.requestId];p.ok(m.result||{ok:false});
@@ -838,7 +878,43 @@ splash.addEventListener('click',e=>{
 });
   
 $('#gps2').addEventListener('click',()=>$('#gps').click());
-showLoc();loadTimes();loadNews();updQibla();applyUser();
+/* ---------- jadwal ngaji ---------- */
+const HARI=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'],BLN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const ic=p=>`<svg viewBox="0 0 24 24">${p}</svg>`;
+const IC={cal:'<path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/>',clk:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',usr:'<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',pin:'<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',book:'<path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>'};
+const NGSK='<div class="sk"><i class="l1"></i><i class="im"></i><i class="l2"></i><i class="l3"></i></div>';
+function ngCard(s){
+  const d=new Date(s.date+'T12:00:00Z'),tgl=`${HARI[d.getUTCDay()]}, ${d.getUTCDate()} ${BLN[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  const jam=`${esc(s.start).replace(':','.')} – ${esc(s.end).replace(':','.')} WIB`;
+  return `<article class="ng-card"><div class="ng-top"><span class="ng-tag">${esc(s.category||'Kajian')}</span>${s.rel==='today'?'<span class="ng-badge">Hari ini</span>':s.rel==='tomorrow'?'<span class="ng-badge soft">Besok</span>':''}</div>
+  <h4>${esc(s.title)}</h4>
+  <div class="ng-when"><span>${ic(IC.cal)}${tgl}</span><span>${ic(IC.clk)}${jam}</span></div>
+  <div class="ng-meta">${s.speaker?`<span>${ic(IC.usr)}${esc(s.speaker)}</span>`:''}${s.location?`<span>${ic(IC.pin)}${esc(s.location)}</span>`:''}</div>
+  ${s.description?`<p>${esc(s.description)}</p>`:''}</article>`;
+}
+const ngEmpty=(t,sub,retry)=>`<div class="ng-empty"><span class="ic">${ic(IC.book)}</span><div><b>${t}</b><small>${sub}</small>${retry?'<button class="btn alt" type="button" onclick="loadSchedules()">Coba lagi</button>':'<button class="btn alt" type="button" onclick="go(\'quran\')">Buka Al-Qur’an</button>'}</div></div>`;
+let ngLast=0;
+async function loadSchedules(){
+  ngLast=Date.now();const tr=$('#ngTrack');tr.innerHTML=NGSK+NGSK;$('#ngDots').innerHTML='';$('#ngCount').textContent='';
+  try{
+    const r=await bridge('getPublicSchedules');if(!r.ok)throw new Error(r.message||'gagal');
+    const list=r.schedules||[];
+    if(!list.length){tr.innerHTML=ngEmpty('Belum ada jadwal ngaji','Jadwal terbaru muncul di sini otomatis. Sambil menunggu, yuk membaca Al-Qur’an.');return}
+    tr.innerHTML=list.map(ngCard).join('');tr.scrollLeft=0;
+    $('#ngCount').textContent=list.length+' jadwal';
+    $('#ngDots').innerHTML=list.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('');
+  }catch(e){tr.innerHTML=ngEmpty('Jadwal belum bisa dimuat','Periksa koneksi, lalu coba lagi.',true)}
+}
+let ngRaf=0;
+$('#ngTrack').addEventListener('scroll',()=>{
+  if(ngRaf)return;ngRaf=requestAnimationFrame(()=>{ngRaf=0;
+    const t=$('#ngTrack'),c=t.querySelector('.ng-card'),n=$$('#ngDots i').length;if(!c||!n)return;
+    const end=t.scrollLeft+t.clientWidth>=t.scrollWidth-4,i=end?n-1:Math.round(t.scrollLeft/(c.offsetWidth+12));
+    $$('#ngDots i').forEach((d,k)=>d.classList.toggle('on',k===i));
+  });
+},{passive:true});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-ngLast>600000)loadSchedules()});
+showLoc();loadTimes();loadSchedules();loadNews();updQibla();applyUser();
 /* ---------- halaman muat ---------- */
 (function(){
   const bootEl=$('#boot'),t0=performance.now();let shown=false;
