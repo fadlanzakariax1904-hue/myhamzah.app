@@ -7,7 +7,10 @@
 <title>MY HAMZA APP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="logo.png">
+<link rel="preload" as="image" href="bg-hamza.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Amiri:wght@400;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Amiri:wght@400;700&display=swap"></noscript>
 <style>
 :root{
   --forest:#073c35;--forest-2:#0b5147;--emerald:#126b58;--mint:#dcebe3;
@@ -405,9 +408,28 @@ nav button.on{background:rgba(16,59,54,.08);color:#103B36}
 #compass.on{border-color:rgba(201,169,106,.6);color:#C9A96A}
 @media(hover:hover){#compass:hover{background:rgba(255,255,255,.06)}}
 
+/* perbaikan kotak di bola (iOS) */
+.orb{clip-path:circle(50% at 50% 50%)}
+.orb .sheen{display:none}
+
+/* halaman muat */
+:root{--ease:cubic-bezier(.2,.8,.2,1)}
+#boot{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;background:#092B27;transition:opacity 300ms var(--ease),visibility 300ms}
+#boot.done{opacity:0;visibility:hidden;pointer-events:none}
+.boot-logo{position:relative;width:96px;height:96px;display:grid;place-items:center}
+.boot-logo img{width:76px;height:76px;object-fit:contain;animation:bootPulse 2s var(--ease) infinite}
+.boot-ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(201,169,106,.5);animation:bootRing 2s var(--ease) infinite}
+.boot-bar{width:88px;height:2px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
+.boot-bar i{display:block;width:40%;height:100%;border-radius:2px;background:#C9A96A;animation:bootBar 1.2s var(--ease) infinite}
+@keyframes bootPulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.05);opacity:1}}
+@keyframes bootRing{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.35);opacity:0}}
+@keyframes bootBar{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
+@media(prefers-reduced-motion:reduce){.boot-ring{display:none}}
+
 </style>
 </head>
 <body>
+<div id="boot" aria-hidden="true"><div class="boot-logo"><img src="logo.png" alt="" width="76" height="76"><i class="boot-ring"></i></div><div class="boot-bar"><i></i></div></div>
 <div id="splash" role="dialog" aria-modal="true" aria-label="Selamat datang di MY HAMZA APP">
   <div class="sp-stage">
     <div class="sp-dots" id="spDots" aria-hidden="true"></div>
@@ -816,7 +838,15 @@ splash.addEventListener('click',e=>{
 });
   
 $('#gps2').addEventListener('click',()=>$('#gps').click());
-showLoc();loadTimes();loadNews();updQibla();applyUser();boot();
+showLoc();loadTimes();loadNews();updQibla();applyUser();
+/* ---------- halaman muat ---------- */
+(function(){
+  const bootEl=$('#boot'),t0=performance.now();let shown=false;
+  const show=()=>{if(shown)return;shown=true;const wait=Math.max(0,700-(performance.now()-t0));setTimeout(()=>{bootEl.classList.add('done');setTimeout(()=>bootEl.remove(),400);boot()},wait)};
+  const pre=src=>new Promise(r=>{const i=new Image();i.onload=i.onerror=r;i.src=src});
+  Promise.all([pre('bg-hamza.jpg'),pre('logo.png')]).then(show);
+  setTimeout(show,3500);
+})();
 </script>
 </body>
 </html>
