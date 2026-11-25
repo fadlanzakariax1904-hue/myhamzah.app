@@ -210,59 +210,82 @@ nav button{font-size:11px;font-weight:600;letter-spacing:0}
 @media(min-width:700px){body{padding-bottom:110px}.top{padding-left:22px;padding-right:22px}main{padding-left:22px;padding-right:22px}.hs{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}}
 @media(max-width:370px){.top{padding-left:15px;padding-right:15px}.top b{font-size:14px;max-width:190px}.brandmark{width:38px;height:38px}.top>span{font-size:11px;padding:6px 8px}.hero{padding:20px 18px}.hero h2{font-size:22px}.cd{font-size:34px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
-/* ===== TEMA HIJAU GELAP ===== */
-:root{--forest:#0f3836;--forest-2:#194b48;--emerald:#1d5753}
-html{background:#f6f8f7}
-body{background:#f6f8f7}
+/* ===== TEMA HIJAU GELAP · MINIMAL ===== */
+:root{--forest:#082523;--forest-2:#0e2f2d;--emerald:#134440;--sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif}
+html{background:#f2f2f7}
+body{background:#f2f2f7;font-size:14px;line-height:1.5}
 body:after{opacity:0}
 
-/* header hijau seperti gambar 2 */
-.top{max-width:none;margin:0 0 16px;padding-left:max(20px,calc(50% - 300px));padding-right:max(20px,calc(50% - 300px));background:linear-gradient(160deg,#2a6560 0%,#194b48 55%,#0f3634 100%);border-radius:0 0 28px 28px}
-.top b{color:#fff}
-.brand-copy small{color:#a9cbc3}
-.brandmark{background:#fffdf8;color:#1d5753;box-shadow:none}
-.top>span{color:#e3efea;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18)}
+/* ukuran font diperkecil */
+.muted{font-size:12px}
+h2{font-size:21px;font-weight:700;letter-spacing:-.4px}
+h3{font-size:14px;font-weight:600;margin:20px 2px 10px;color:#3a4a47}
+.welcome-line .eyebrow{font-size:11px;letter-spacing:.6px}
+.welcome-line p{font-size:15px}
+.grow small{font-size:12px}
+.num{font-size:12px}
+.btn{font-size:13px;background:linear-gradient(135deg,#1f4f4a,#0a2423)}
+.meta{font-size:11px}
+.tag{font-size:10px}
+.more{font-size:13px}
+.lat{font-size:13px}
+.ar.big{font-size:26px}
 
-/* kartu & tombol hijau gelap */
-.hero{background:radial-gradient(circle at 82% 17%,rgba(230,200,130,.16),transparent 25%),linear-gradient(160deg,#2a6560 0%,#194b48 55%,#0f3634 100%);box-shadow:0 16px 32px rgba(15,54,52,.22)}
-#v-sholat .panel:first-of-type{background:linear-gradient(160deg,#2a6560 0%,#194b48 55%,#0f3634 100%)}
-.btn{background:linear-gradient(135deg,#1f5f5a,#0f3a38)}
+/* header */
+.top{max-width:none;margin:0 0 14px;padding-left:max(20px,calc(50% - 300px));padding-right:max(20px,calc(50% - 300px));background:linear-gradient(160deg,#1f4f4a 0%,#0e2f2d 55%,#071a19 100%);border-radius:0 0 26px 26px}
+.top b{color:#fff;font-size:14px;font-weight:600}
+.brand-copy small{color:#9fbdb7;font-size:10px;letter-spacing:.4px;font-weight:500}
+.brandmark{width:38px;height:38px;background:#fff;color:#0e2f2d;box-shadow:none;border-radius:12px}
+.top>span{color:#dcebe7;background:rgba(255,255,255,.1);border:0;font-size:11px}
 
-/* kotak waktu sholat di hero */
+/* kartu polos ala Apple */
+.panel,.card,.ay{border:0;border-radius:20px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(0,0,0,.05)}
+.row{border-bottom:.5px solid #e5e5ea}
+
+/* hero: tanpa siluet masjid & ornamen */
+.hero{min-height:0;border:0;border-radius:24px;padding:20px 20px 18px;background:linear-gradient(160deg,#1f4f4a 0%,#0e2f2d 55%,#071a19 100%);box-shadow:0 12px 28px rgba(7,26,25,.25)}
+.hero:before,.hero:after,.hero-mosque{display:none}
+.hero small{font-size:11px;letter-spacing:.4px}
+.hero h2{font-size:20px;font-weight:600;margin:6px 0 0}
+.hero .locName{font-size:12px}
+.cd{font-size:clamp(32px,9vw,38px);font-weight:600;letter-spacing:-1px}
+.hero-note{font-size:12px}
+#v-sholat .panel:first-of-type{background:linear-gradient(160deg,#1f4f4a 0%,#0e2f2d 55%,#071a19 100%);border:0}
+
+/* kotak waktu mini */
 .mini{position:relative;z-index:2;display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:14px}
-.mini div{border:1px solid rgba(255,255,255,.35);border-radius:11px;padding:7px 2px 6px;text-align:center;font-size:11px;color:#dcebe6;line-height:1.25}
-.mini div b{display:block;font-size:13px;color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.mini div{border:.5px solid rgba(255,255,255,.3);border-radius:11px;padding:7px 2px 6px;text-align:center;font-size:11px;color:#c9dcd7;line-height:1.25}
+.mini div b{display:block;font-size:13px;color:#fff;font-weight:600;font-variant-numeric:tabular-nums}
 .mini div.next{background:rgba(255,255,255,.12);border-color:#e6c77a}
 .mini div.next b{color:#f5c96a}
 
-/* tile ikon */
-.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0 4px}
-.quick button{border:0;background:#fff;border-radius:18px;padding:13px 4px 10px;font:inherit;font-size:12px;font-weight:600;color:#0f3836;display:flex;flex-direction:column;align-items:center;gap:7px;box-shadow:0 8px 20px rgba(15,54,52,.09);cursor:pointer}
-.quick span{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:#e3efeb;color:#1d5753}
-.quick svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+/* 4 ikon beranda (emoji 3D) */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 2px}
+.quick button{border:0;background:#fff;border-radius:18px;padding:12px 4px 10px;font:inherit;font-size:12px;font-weight:500;color:#1c1c1e;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 18px rgba(0,0,0,.05);cursor:pointer}
+.quick span{font-size:28px;line-height:1;filter:drop-shadow(0 3px 4px rgba(0,0,0,.2))}
 
-/* navigasi minimalis */
-nav{background:#fff;border:0;border-radius:26px 26px 0 0;box-shadow:0 -6px 22px rgba(15,54,52,.08);padding:8px 10px calc(8px + env(safe-area-inset-bottom));gap:0;align-items:center}
-nav button{font-size:10px;font-weight:500;color:#8c9a95;background:none;box-shadow:none;padding:6px 2px}
+/* navigasi kaca ala iOS */
+nav{background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border:0;border-top:.5px solid rgba(0,0,0,.1);border-radius:0;box-shadow:none;padding:6px 10px calc(6px + env(safe-area-inset-bottom));gap:0;align-items:center}
+nav button{font-size:10px;font-weight:500;color:#8e8e93;background:none;box-shadow:none;padding:5px 2px}
 nav button svg{stroke-width:1.5}
-nav button.on{background:none;box-shadow:none;color:#1d5753;font-weight:700}
-nav button[data-v=home],nav button[data-v=home].on{font-size:0;gap:0;width:72px;height:46px;margin:0 auto;padding:0;border-radius:24px;background:linear-gradient(160deg,#2a6560,#0f3a38);color:#fff;box-shadow:0 6px 14px rgba(15,54,52,.25)}
-nav button[data-v=home] .nav-icon{width:24px;height:24px}
-nav button[data-v=home] svg{width:22px;height:22px}
+nav button.on{background:none;box-shadow:none;color:#0e2f2d;font-weight:600}
+nav button[data-v=home],nav button[data-v=home].on{font-size:0;gap:0;width:64px;height:40px;margin:0 auto;padding:0;border-radius:20px;background:#0e2f2d;color:#fff;box-shadow:none}
+nav button[data-v=home] .nav-icon{width:22px;height:22px}
+nav button[data-v=home] svg{width:20px;height:20px}
 
-/* kompas minimalis */
-#v-kiblat{background:linear-gradient(180deg,#2d6b66 0%,#1a4c49 52%,#0f3634 100%);border-radius:28px;padding:22px 16px 28px;box-shadow:0 16px 34px rgba(15,54,52,.22)}
+/* kompas: tanpa jarum */
+#v-kiblat{background:linear-gradient(180deg,#1f4f4a 0%,#0e2f2d 55%,#061a19 100%);border-radius:26px;padding:20px 16px 26px;box-shadow:none}
 #v-kiblat h2{color:#fff;font-size:20px}
-#v-kiblat .muted{color:#b9d3cd}
+#v-kiblat .muted{color:#a9c4be}
 .loc-chip{display:inline-flex;align-items:center;gap:7px;border:0;font:inherit;font-size:13px;font-weight:500;padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.1);color:#e8f1ec;cursor:pointer}
 .loc-chip svg{width:15px;height:15px;stroke:#7fd1b6;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.dial{border:1px solid rgba(255,255,255,.14);background:radial-gradient(circle closest-side,#0c3230 0 50%,#1d5551 50% 52%,#164643 52% 86%,#245f5a 86% 88%,transparent 88%);box-shadow:0 0 0 10px rgba(255,255,255,.04),0 16px 34px rgba(0,0,0,.25)}
+.dial{border:.5px solid rgba(255,255,255,.14);background:radial-gradient(circle closest-side,#051715 0 50%,#16403c 50% 51.5%,#0b2826 51.5% 86%,#1a4743 86% 87.5%,transparent 87.5%);box-shadow:0 0 0 10px rgba(255,255,255,.04)}
 .dial:before{color:#cfe3dd;font-size:10px}
 .dial:after{content:"";width:9px;height:9px;border-radius:50%;background:#e6c77a;font-size:0}
 .needle:before{content:"🕋";font-size:19px;top:20px}
-.needle:after{margin-left:-6px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:84px solid #e6c77a;filter:none}
+.needle:after{display:none}
 #qDeg{background:none;border:0;padding:0;color:#f0c46a;font-size:20px;font-weight:700}
-#compass{background:linear-gradient(135deg,#1f5f5a,#0f3a38);border:1px solid rgba(255,255,255,.18)}
+#compass{background:linear-gradient(135deg,#1f4f4a,#0a2423);border:.5px solid rgba(255,255,255,.18)}
 </style>
 </head>
 <body>
@@ -304,10 +327,10 @@ nav button[data-v=home] svg{width:22px;height:22px}
       </svg>
     </div>
     <div class="quick">
-  <button data-go="sholat"><span><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20v-5a6 6 0 0 1 12 0v5M12 3v2M9 8a3 3 0 0 1 6 0"/><path d="M3 20V9m18 11V9"/></svg></span>Sholat</button>
-  <button data-go="kiblat"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.3 5.3-5.3 2.3 2.3-5.3z"/></svg></span>Kiblat</button>
-  <button data-go="quran"><span><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22zM4 5.5V22M8 7h8M8 11h8"/></svg></span>Al-Qur'an</button>
-  <button data-go="berita"><span><svg viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v15H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M7 8h11M7 12h4m3 0h4M7 16h11"/></svg></span>Berita</button>
+  <button data-go="sholat"><span>🕌</span>Sholat</button>
+  <button data-go="kiblat"><span>🧭</span>Kiblat</button>
+  <button data-go="quran"><span>📖</span>Al-Qur'an</button>
+  <button data-go="berita"><span>📰</span>Berita</button>
 </div>
     <h3>Program unggulan</h3><div id="prog" class="hs"><p class="muted">Memuat…</p></div>
     <h3>Berita terbaru</h3><div id="latest"></div>
@@ -423,7 +446,7 @@ function updQibla(){
   const b=bearing();$('#qDeg').textContent=Math.round(b)+'° dari Utara · '+loc.n;
   $('#needle').style.transform=`rotate(${heading==null?b:b-heading}deg)`;
   $('#dial').classList.toggle('live',heading!=null);
-  $('#qHint').textContent=heading==null?'Panah menunjuk arah kiblat dari Utara. Aktifkan kompas agar mengikuti arah HP.':'Putar badan sampai ikon Ka’bah berada tepat di atas.';
+  $('#qHint').textContent=heading==null?'Ikon Ka’bah menunjuk arah kiblat dari Utara. Aktifkan kompas agar mengikuti arah HP.':'Putar badan sampai ikon Ka’bah berada tepat di atas.';
 }
 $('#compass').addEventListener('click',async()=>{
   try{
