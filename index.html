@@ -44,7 +44,9 @@ h3{margin:25px 2px 12px;font-size:12px;letter-spacing:1.25px;text-transform:uppe
 .welcome-line{padding:5px 3px 15px}
 .welcome-line .eyebrow{font-size:10px;letter-spacing:2px;color:#a18a60;font-weight:800}
 .welcome-line p{margin:3px 0 0;color:#66796f;font-family:Georgia,"Times New Roman",serif;font-size:17px}
-.welcome-line .editme{border:0;background:none;padding:6px 0 0;font:inherit;font-size:13px;font-weight:600;color:var(--emerald);cursor:pointer;font-family:var(--sans,inherit)}
+.wl-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.rolebadge{background:#e6eee5;color:var(--forest);font-size:12px;font-weight:700;padding:5px 11px;border-radius:99px;border:1px solid #d9e4d9}
+.welcome-line .editme{border:0;background:none;padding:0;font:inherit;font-size:13px;font-weight:600;color:var(--emerald);cursor:pointer;font-family:var(--sans,inherit)}
 .hero{
   color:#fffdf4;position:relative;isolation:isolate;overflow:hidden;min-height:230px;
   border:1px solid rgba(227,211,174,.22);border-radius:27px;padding:23px 22px 21px;
@@ -115,7 +117,7 @@ nav button.on{background:var(--forest);color:#f7efdc;box-shadow:0 5px 13px rgba(
   background:
     linear-gradient(180deg,rgba(5,9,18,.30) 0%,rgba(5,9,18,.55) 48%,rgba(4,7,14,.92) 100%),
     radial-gradient(ellipse at 72% 4%,rgba(198,166,106,.20),transparent 42%),
-    url("bg-hamza.png") center top/cover no-repeat,
+    url("bg-hamza.jpg") center top/cover no-repeat,
     #070c16;
   transition:opacity .5s ease,visibility .5s ease
 }
@@ -128,15 +130,21 @@ nav button.on{background:var(--forest);color:#f7efdc;box-shadow:0 5px 13px rgba(
 @keyframes spFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 .orb-wrap{position:relative;display:grid;place-items:center;margin:clamp(26px,6vh,48px) 0;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
-.orb-wrap:before{content:"";position:absolute;width:220%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(150,86,70,.50) 0%,rgba(105,56,56,.26) 36%,transparent 66%);animation:glow 5s ease-in-out infinite;pointer-events:none}
+.orb-wrap:before{content:"";position:absolute;width:220%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(22,128,96,.52) 0%,rgba(9,72,58,.30) 36%,transparent 66%);animation:glow 5s ease-in-out infinite;pointer-events:none}
 @keyframes glow{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.07)}}
-.orb{position:relative;width:min(250px,62vw);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#cfa9dd;box-shadow:0 0 70px 14px rgba(226,126,96,.22),inset 0 0 40px rgba(255,255,255,.28);transition:width .7s cubic-bezier(.2,.8,.2,1);isolation:isolate}
+.orb{position:relative;width:min(250px,62vw);aspect-ratio:1;border-radius:50%;overflow:hidden;background:#1f6f5b;box-shadow:0 0 70px 14px rgba(34,160,120,.28),inset 0 0 40px rgba(255,255,255,.12);transition:width .7s cubic-bezier(.2,.8,.2,1);isolation:isolate;animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 0 60px 10px rgba(34,160,120,.22),inset 0 0 40px rgba(255,255,255,.10)}50%{transform:scale(1.045);box-shadow:0 0 100px 26px rgba(48,190,145,.40),inset 0 0 50px rgba(255,255,255,.18)}}
+.orb:after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 22%,rgba(255,255,255,.30),transparent 42%);z-index:2;pointer-events:none}
+.orb .sheen{position:absolute;inset:-20%;background:conic-gradient(from 0deg,transparent 0 52%,rgba(255,255,255,.34) 70%,transparent 86%);filter:blur(16px);mix-blend-mode:soft-light;animation:spin 9s linear infinite;z-index:2;pointer-events:none}
+.ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(232,208,150,.6);opacity:0;animation:ripple 4.5s ease-out infinite;pointer-events:none}
+.ring.r2{animation-delay:2.25s}
+@keyframes ripple{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.75);opacity:0}}
 .orb i{position:absolute;border-radius:50%;filter:blur(26px);will-change:transform}
-.orb .b1{width:62%;height:62%;left:-6%;top:22%;background:#f5b83d;animation:d1 7s ease-in-out infinite}
-.orb .b2{width:58%;height:58%;right:-8%;top:30%;background:#c8284f;animation:d2 8s ease-in-out infinite}
-.orb .b3{width:60%;height:60%;right:6%;top:-12%;background:#a68be6;animation:d3 9s ease-in-out infinite}
-.orb .b4{width:56%;height:56%;left:12%;bottom:-14%;background:#f27c70;animation:d4 7.5s ease-in-out infinite}
-.orb .b5{width:48%;height:48%;left:24%;top:26%;background:#ffd98a;opacity:.85;animation:d5 6s ease-in-out infinite}
+.orb .b1{width:62%;height:62%;left:-6%;top:22%;background:#0f9a74;animation:d1 7s ease-in-out infinite}
+.orb .b2{width:58%;height:58%;right:-8%;top:30%;background:#06483a;animation:d2 8s ease-in-out infinite}
+.orb .b3{width:60%;height:60%;right:6%;top:-12%;background:#3dbf9c;animation:d3 9s ease-in-out infinite}
+.orb .b4{width:56%;height:56%;left:12%;bottom:-14%;background:#0b6b55;animation:d4 7.5s ease-in-out infinite}
+.orb .b5{width:44%;height:44%;left:26%;top:28%;background:#e2c777;opacity:.62;animation:d5 6s ease-in-out infinite}
 @keyframes d1{0%,100%{transform:translate(0,0)}50%{transform:translate(22%,-14%)}}
 @keyframes d2{0%,100%{transform:translate(0,0)}50%{transform:translate(-26%,12%)}}
 @keyframes d3{0%,100%{transform:translate(0,0)}50%{transform:translate(-18%,22%)}}
@@ -156,14 +164,14 @@ nav button.on{background:var(--forest);color:#f7efdc;box-shadow:0 5px 13px rgba(
 .sp-in{width:100%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:16px;padding:16px 18px;font:inherit;font-size:17px;color:#fff;text-align:center;outline:none;transition:border-color .2s,box-shadow .2s}
 .sp-in::placeholder{color:#7d7a76}
 .sp-in:focus{border-color:rgba(232,200,130,.7);box-shadow:0 0 0 4px rgba(232,200,130,.12)}
-.sp-btn{width:100%;border:0;border-radius:16px;padding:16px 18px;font:inherit;font-size:16px;font-weight:650;color:#1d1a12;background:linear-gradient(135deg,#f0dfb4,#cdae74);box-shadow:0 12px 28px rgba(0,0,0,.28);cursor:pointer;transition:transform .15s,opacity .2s}
+.sp-btn{width:100%;border:0;border-radius:16px;padding:16px 18px;font:inherit;font-size:16px;font-weight:650;color:#f6ecd2;background:linear-gradient(135deg,#12795f 0%,#0a4d3f 55%,#063329 100%);border:1px solid rgba(214,185,120,.5);box-shadow:0 12px 28px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.14);cursor:pointer;transition:transform .15s,opacity .2s}
 .sp-btn:active{transform:translateY(1px)}
 .sp-btn:disabled{opacity:.38;cursor:default}
 .sp-btn.ghost{background:rgba(255,255,255,.07);color:#f4f1ec;border:1px solid rgba(255,255,255,.18);box-shadow:none}
 .sp-skip{border:0;background:none;color:#8d8884;font:inherit;font-size:14px;padding:6px;cursor:pointer}
 .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;width:100%}
 .chip{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#f4f1ec;font:inherit;font-size:15px;font-weight:500;padding:11px 18px;border-radius:99px;cursor:pointer;transition:all .2s}
-.chip.on{background:linear-gradient(135deg,#f0dfb4,#cdae74);color:#1d1a12;border-color:transparent;font-weight:650}
+.chip.on{background:linear-gradient(135deg,#12795f,#073f35);color:#f6ecd2;border-color:rgba(214,185,120,.7);font-weight:650;box-shadow:0 0 0 3px rgba(214,185,120,.12)}
 .sp-dots{display:flex;gap:7px;justify-content:center;margin-bottom:6px;height:6px}
 .sp-dots span{width:6px;height:6px;border-radius:99px;background:rgba(255,255,255,.22);transition:all .3s}
 .sp-dots span.on{width:20px;background:#e3cda0}
@@ -210,8 +218,9 @@ nav button{font-size:11px;font-weight:600;letter-spacing:0}
     <div class="sp-dots" id="spDots" aria-hidden="true"></div>
     <h1 class="sp-title" id="spTitle"><span class="l1">Selamat datang di</span><span class="l2">MY HAMZA APP</span></h1>
     <div class="orb-wrap">
+      <span class="ring" aria-hidden="true"></span><span class="ring r2" aria-hidden="true"></span>
       <div class="orb" aria-hidden="true">
-        <i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i>
+        <i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i><div class="sheen"></div>
         <div class="orb-icon"><svg viewBox="0 0 48 48"><rect x="10" y="10" width="28" height="28" rx="1.5"/><rect x="10" y="10" width="28" height="28" rx="1.5" transform="rotate(45 24 24)"/></svg></div>
       </div>
     </div>
@@ -228,7 +237,7 @@ nav button{font-size:11px;font-weight:600;letter-spacing:0}
 </header>
 <main>
   <section id="v-home" class="view">
-    <div class="welcome-line"><span class="eyebrow">ASSALAMU’ALAIKUM</span><p id="welcomeText">Temukan ketenangan dalam setiap waktu.</p><button class="editme" id="editProfile" type="button">Ubah data saya</button></div>
+    <div class="welcome-line"><span class="eyebrow">ASSALAMU’ALAIKUM</span><p id="welcomeText">Temukan ketenangan dalam setiap waktu.</p><div class="wl-actions"><span class="rolebadge hidden" id="roleBadge"></span><button class="editme" id="editProfile" type="button">Ubah data saya</button></div></div>
     <div class="hero">
       <small>WAKTU SHOLAT BERIKUTNYA</small>
       <small class="locName"></small>
@@ -280,7 +289,7 @@ nav button{font-size:11px;font-weight:600;letter-spacing:0}
 <script>
 const CFG={
   API:'https://script.google.com/macros/s/AKfycby23ClCY10x2QEQnGxSgVZnMpZ1YFpXBlN_F9EY0aMuyyPW5JbfcPmBbK8HrIFKZr6y/exec',
-  NAME:'MY HAMZA APP',
+  NAME:'Majelis Asy-Syifaa wal Marzuuqiyyah',
   APP:'MY HAMZA APP',
   CITY:{n:'Bandung',lat:-6.9175,lng:107.6191}
 };
@@ -434,19 +443,20 @@ async function loadNews(){
 
 /* ---------- profil user (disimpan di perangkat) ---------- */
 const PKEY='hamzaUser';
-let user={name:'',title:'',done:false};
-try{const u=JSON.parse(localStorage.getItem(PKEY)||'null');if(u&&typeof u==='object')user={name:String(u.name||''),title:String(u.title||''),done:!!u.done}}catch(e){}
+let user={name:'',title:'',role:'',done:false};
+try{const u=JSON.parse(localStorage.getItem(PKEY)||'null');if(u&&typeof u==='object')user={name:String(u.name||''),title:String(u.title||''),role:String(u.role||''),done:!!u.done}}catch(e){}
 const saveUser=()=>{try{localStorage.setItem(PKEY,JSON.stringify(user))}catch(e){}};
 const dispName=()=>[user.title,user.name].filter(Boolean).join(' ').trim();
 function applyUser(){
   const d=dispName();
   $('#welcomeText').textContent=d?`${d}, temukan ketenangan dalam setiap waktu.`:'Temukan ketenangan dalam setiap waktu.';
+  $('#roleBadge').textContent=user.role||'';$('#roleBadge').classList.toggle('hidden',!user.role);
   $('#editProfile').classList.toggle('hidden',!user.done);
 }
 
 /* ---------- splash + alur perkenalan ---------- */
 const splash=$('#splash'),spTitle=$('#spTitle'),spBody=$('#spBody'),spFoot=$('#spFoot'),spDots=$('#spDots');
-const STEPS=['name','title','place'];
+const STEPS=['name','title','role','place'];
 let timers=[];
 const later=(fn,ms)=>{const t=setTimeout(fn,ms);timers.push(t);return t};
 const clearTimers=()=>{timers.forEach(clearTimeout);timers=[]};
@@ -496,7 +506,7 @@ function stepView(s){
     const next=()=>{if(inp.value.trim().length<2)return;user.name=inp.value.trim().replace(/\s+/g,' ');stepView('title')};
     btn.addEventListener('click',next);
     inp.addEventListener('keydown',e=>{if(e.key==='Enter')next()});
-    $('#skipName').addEventListener('click',()=>{user.name='';user.title='';stepView('place')});
+    $('#skipName').addEventListener('click',()=>{user.name='';user.title='';stepView('role')});
   }else if(s==='title'){
     setTitle('Senang bertemu,',user.name+'.');
     const T=['Akhi','Ukhti','Bapak','Ibu','Kak','Tanpa sapaan'];
@@ -508,12 +518,24 @@ function stepView(s){
       const c=e.target.closest('.chip');if(!c)return;pick=c.dataset.t;
       $$('#chips .chip').forEach(x=>x.classList.toggle('on',x===c));btn.disabled=false;
     });
-    btn.addEventListener('click',()=>{user._t=pick==='Tanpa sapaan';user.title=pick==='Tanpa sapaan'?'':pick;stepView('place')});
+    btn.addEventListener('click',()=>{user._t=pick==='Tanpa sapaan';user.title=pick==='Tanpa sapaan'?'':pick;stepView('role')});
+  }else if(s==='role'){
+    setTitle('Boleh kami tahu,','Anda ini siapa?');
+    const R=['Santri','Orang tua santri','Jamaah','Saudara muslim','Alumni','Pengajar / Ustadz','Tamu'];
+    setBody(`<div class="chips" id="chips">${R.map(t=>`<button type="button" class="chip${user.role===t?' on':''}" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div><p class="sp-note">Pilih yang paling sesuai.</p><button class="sp-btn" id="goRole" type="button" disabled>Lanjut</button>`,
+      'Agar sambutan di aplikasi terasa lebih pas untuk Anda.',true);
+    setDots(2);
+    let pick=user.role||'';const btn=$('#goRole');btn.disabled=!pick;
+    $('#chips').addEventListener('click',e=>{
+      const c=e.target.closest('.chip');if(!c)return;pick=c.dataset.t;
+      $$('#chips .chip').forEach(x=>x.classList.toggle('on',x===c));btn.disabled=false;
+    });
+    btn.addEventListener('click',()=>{user.role=pick;stepView('place')});
   }else if(s==='place'){
     setTitle('Di mana Anda','menunaikan sholat?');
     setBody(`<button class="sp-btn" id="useGps" type="button">📍 Gunakan lokasi saya</button><button class="sp-btn ghost" id="useCity" type="button">Pakai ${esc(CFG.CITY.n)} dulu</button><p class="sp-note" id="gpsMsg"></p>`,
       'Untuk jadwal sholat dan arah kiblat yang tepat. Data tersimpan di perangkat Anda saja.',true);
-    setDots(2);
+    setDots(3);
     $('#useGps').addEventListener('click',()=>{
       const b=$('#useGps');b.disabled=true;b.textContent='Mencari lokasi…';
       askGPS(()=>finish(),()=>{b.disabled=false;b.textContent='📍 Coba lagi';$('#gpsMsg').textContent='Izin lokasi belum diberikan. Anda bisa coba lagi atau pakai '+CFG.CITY.n+'.'});
