@@ -210,6 +210,52 @@ nav button{font-size:11px;font-weight:600;letter-spacing:0}
 @media(min-width:700px){body{padding-bottom:110px}.top{padding-left:22px;padding-right:22px}main{padding-left:22px;padding-right:22px}.hs{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}}
 @media(max-width:370px){.top{padding-left:15px;padding-right:15px}.top b{font-size:14px;max-width:190px}.brandmark{width:38px;height:38px}.top>span{font-size:11px;padding:6px 8px}.hero{padding:20px 18px}.hero h2{font-size:22px}.cd{font-size:34px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+/* ===== TEMA HIJAU (hapus blok ini kalau mau kembali ke tema krem) ===== */
+html{background:#0a2e2d}
+body{background:radial-gradient(ellipse at 10% 0%,rgba(40,120,105,.35),transparent 45%),linear-gradient(180deg,#0f3f3c 0%,#0a2e2d 100%);color:#e8f1ec}
+body:after{opacity:.07}
+.top b{color:#f3ead2}
+.brand-copy small{color:#a9c4b9}
+.top>span{color:#d8e6df;background:rgba(255,255,255,.08);border-color:rgba(230,214,170,.3)}
+h2{color:#fff}
+h3{color:#cfe3da}
+.welcome-line p{color:#cfe3da}
+.welcome-line .eyebrow{color:#e0c58a}
+.welcome-line .editme{color:#7fd1b6}
+.rolebadge{background:rgba(255,255,255,.1);color:#e8f1ec;border-color:rgba(230,214,170,.3)}
+.muted{color:#a7c2b8}
+.panel .muted,.card .muted,.ay .muted{color:#7b8981}
+.hero{background:radial-gradient(circle at 82% 17%,rgba(230,200,130,.22),transparent 25%),linear-gradient(135deg,#17806a 0%,#0d5a4b 55%,#0a4238 100%);border-color:rgba(230,214,170,.35)}
+
+/* kartu waktu sholat mini di dalam hero */
+.mini{position:relative;z-index:2;display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:14px}
+.mini div{border:1px solid rgba(230,214,170,.45);border-radius:11px;padding:7px 2px 6px;text-align:center;font-size:11px;color:#e9e3cf;line-height:1.25}
+.mini div b{display:block;font-size:13px;color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.mini div.next{background:rgba(230,214,170,.18);border-color:#e6c77a}
+.mini div.next b{color:#f5c96a}
+
+/* tombol menu cepat (ikon) */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0 4px}
+.quick button{border:0;background:#fffdf8;border-radius:18px;padding:13px 4px 10px;font:inherit;font-size:12px;font-weight:650;color:#0b4a40;display:flex;flex-direction:column;align-items:center;gap:7px;box-shadow:0 8px 20px rgba(0,0,0,.18);cursor:pointer}
+.quick span{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,#e0efe8,#c9e2d6);color:#0b5a4b}
+.quick svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* navigasi: tombol Beranda bulat di tengah */
+nav{background:rgba(255,253,248,.97);border-color:transparent;border-radius:24px 24px 0 0;overflow:visible}
+nav button.on{background:none;color:#0b5a4b;box-shadow:none}
+nav button[data-v=home],nav button[data-v=home].on{font-size:0;gap:0;width:58px;height:58px;margin:-26px auto 0;padding:0;align-self:start;border-radius:50%;background:linear-gradient(145deg,#16856d,#07443a);color:#f6ecd2;border:3px solid #fffdf8;box-shadow:0 8px 18px rgba(7,60,53,.35)}
+nav button[data-v=home] .nav-icon{width:26px;height:26px}
+nav button[data-v=home] svg{width:24px;height:24px}
+
+/* kompas hijau gelap */
+#v-kiblat{background:linear-gradient(165deg,#17564f 0%,#0c3a37 60%,#082c2b 100%);border:1px solid rgba(230,214,170,.22);border-radius:28px;padding:22px 16px 26px;box-shadow:0 18px 40px rgba(0,0,0,.28)}
+#v-kiblat .muted{color:#b9d3c9}
+.dial{border:1px solid rgba(230,214,170,.45);background:radial-gradient(circle,#0b3532 0 38%,#14504a 39% 40%,#0d3b37 41% 66%,#1b5f57 67% 68%,#0a302d 69%);box-shadow:0 0 0 10px rgba(255,255,255,.05),0 0 0 11px rgba(230,214,170,.25),0 18px 40px rgba(0,0,0,.35)}
+.dial:before,.dial:after{color:#e6c77a}
+.needle:before{color:#f5c96a}
+.needle:after{border-bottom-color:#e6c77a;filter:drop-shadow(0 4px 6px rgba(0,0,0,.35))}
+#qDeg{background:rgba(255,255,255,.08);border-color:rgba(230,214,170,.4);color:#f5c96a;font-size:18px;font-weight:700}
+#compass{border:1px solid rgba(214,185,120,.6)}
 </style>
 </head>
 <body>
