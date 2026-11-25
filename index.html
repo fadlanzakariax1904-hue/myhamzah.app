@@ -290,11 +290,18 @@ nav button[data-v=home] svg{width:24px;height:24px}
       <h2 id="nextName">…</h2>
       <div class="cd" id="cd">--:--:--</div>
       <p class="hero-note">Waktu yang mendekat, kesempatan untuk kembali mengingat-Nya.</p>
+      <div class="mini" id="miniTimes"></div>
       <svg class="hero-mosque" viewBox="0 0 240 180" aria-hidden="true">
         <path class="silhouette" d="M0 168h240v12H0zM18 168v-35h12v35m-17-35 11-18 11 18m5 35v-50h9v50m-14-50 9-16 9 16m-1 50v-31h15v31m-18-31 10-17 11 17m15 31V92c0-23 17-42 38-42s38 19 38 42v76h-16v-57c0-14-10-25-22-25s-22 11-22 25v57Zm25-118c-2-13 4-23 13-30 9 7 15 17 13 30Zm11-33h4v-9h-4Zm-5 9h14v4h-14Zm61 142V72h12v96m-18-96 12-18 12 18m-11-18V30c0-11 7-20 16-20s16 9 16 20v46h-8V36c0-7-4-12-8-12s-8 5-8 12v40Zm7-47c-1-8 4-14 9-18 6 4 10 10 9 18Z"/>
         <path class="detail" d="M92 168v-56m-8 56v-45m16 45v-45M190 168V77m8 91V77m-7-54h7"/>
       </svg>
     </div>
+    <div class="quick">
+  <button data-go="sholat"><span><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20v-5a6 6 0 0 1 12 0v5M12 3v2M9 8a3 3 0 0 1 6 0"/><path d="M3 20V9m18 11V9"/></svg></span>Sholat</button>
+  <button data-go="kiblat"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.3 5.3-5.3 2.3 2.3-5.3z"/></svg></span>Kiblat</button>
+  <button data-go="quran"><span><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22zM4 5.5V22M8 7h8M8 11h8"/></svg></span>Al-Qur'an</button>
+  <button data-go="berita"><span><svg viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v15H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M7 8h11M7 12h4m3 0h4M7 16h11"/></svg></span>Berita</button>
+</div>
     <h3>Program unggulan</h3><div id="prog" class="hs"><p class="muted">Memuat…</p></div>
     <h3>Berita terbaru</h3><div id="latest"></div>
   </section>
@@ -324,9 +331,9 @@ nav button[data-v=home] svg{width:24px;height:24px}
   </section>
 </main>
 <nav aria-label="Navigasi utama">
-  <button data-v="home" class="on"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>Beranda</button>
   <button data-v="sholat"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20v-5a6 6 0 0 1 12 0v5M12 3v2M9 8a3 3 0 0 1 6 0"/><path d="M3 20V9m18 11V9"/></svg></span>Sholat</button>
   <button data-v="kiblat"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.3 5.3-5.3 2.3 2.3-5.3z"/></svg></span>Kiblat</button>
+  <button data-v="home" class="on"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>Beranda</button>
   <button data-v="quran"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22zM4 5.5V22M8 7h8M8 11h8"/></svg></span>Al-Qur'an</button>
   <button data-v="berita"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v15H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M7 8h11M7 12h4m3 0h4M7 16h11"/></svg></span>Berita</button>
 </nav>
@@ -350,6 +357,7 @@ function go(v){
   if(v==='quran'&&!surahs)loadSurahs();if(v==='kiblat')updQibla();
 }
 $$('nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.v)));
+$$('[data-go]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.go)));
 
 /* ---------- lokasi + jadwal sholat ---------- */
 let loc=CFG.CITY,times=null,dayKey='';
@@ -364,6 +372,7 @@ async function loadTimes(){
     const j=await r.json();times=j.data.timings;const h=j.data.date.hijri;
     $('#hijri').textContent=`${h.day} ${h.month.en} ${h.year} H`;
     $('#timeList').innerHTML=NAMES.map(([k,l])=>`<div class="row" data-k="${k}"><span>${l}</span><span class="t">${times[k].slice(0,5)}</span></div>`).join('');
+    $('#miniTimes').innerHTML=NAMES.filter(([k])=>k!=='Sunrise').map(([k,l])=>`<div data-k="${k}">${l}<b>${times[k].slice(0,5)}</b></div>`).join('');
     tick();
   }catch(e){$('#timeList').innerHTML='<p class="muted">Jadwal belum bisa dimuat. Periksa koneksi internet.</p>'}
 }
@@ -379,6 +388,7 @@ function tick(){
   $('#nextName').textContent=nx[1]+' · '+times[nx[0]].slice(0,5);
   $('#cd').textContent=[s/3600|0,(s%3600)/60|0,s%60].map(p2).join(':');
   $$('#timeList .row').forEach(r=>r.classList.toggle('next',r.dataset.k===nx[0]));
+  $$('#miniTimes div').forEach(r=>r.classList.toggle('next',r.dataset.k===nx[0]));
 }
 setInterval(tick,1000);
 function askGPS(onOk,onFail){
