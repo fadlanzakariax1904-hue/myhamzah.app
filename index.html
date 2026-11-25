@@ -339,6 +339,8 @@ body{overflow-x:hidden}
   .sk:after{display:none}
   .orb,.orb i,.ring,.orb-wrap:before,.orb-icon svg,.orb .sheen{animation:none!important}
 }
+.wname{display:block;font-size:22px;font-weight:700;color:var(--forest);letter-spacing:-.4px;line-height:1.25;margin:2px 0 3px}
+.orb-icon img{width:46%;height:46%;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(0,0,0,.25))}
 </style>
 </head>
 <body>
@@ -350,7 +352,7 @@ body{overflow-x:hidden}
       <span class="ring" aria-hidden="true"></span><span class="ring r2" aria-hidden="true"></span>
       <div class="orb" aria-hidden="true">
         <i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i><div class="sheen"></div>
-        <div class="orb-icon"><svg viewBox="0 0 48 48"><rect x="10" y="10" width="28" height="28" rx="1.5"/><rect x="10" y="10" width="28" height="28" rx="1.5" transform="rotate(45 24 24)"/></svg></div>
+        <div class="orb-icon"><img src="logo.png" alt="Logo Majelis" draggable="false"></div>
       </div>
     </div>
     <div class="sp-body" id="spBody"></div>
@@ -591,7 +593,7 @@ const saveUser=()=>{try{localStorage.setItem(PKEY,JSON.stringify(user))}catch(e)
 const dispName=()=>[user.title,user.name].filter(Boolean).join(' ').trim();
 function applyUser(){
   const d=dispName();
-  $('#welcomeText').textContent=d?`${d}, temukan ketenangan dalam setiap waktu.`:'Temukan ketenangan dalam setiap waktu.';
+  $('#welcomeText').innerHTML=d?`<span class="wname">${esc(d)}</span>Temukan ketenangan dalam setiap waktu.`:'Temukan ketenangan dalam setiap waktu.';
   $('#roleBadge').textContent=user.role||'';$('#roleBadge').classList.toggle('hidden',!user.role);
   $('#editProfile').classList.toggle('hidden',!user.done);
 }
