@@ -264,14 +264,14 @@ h3{font-size:14px;font-weight:600;margin:20px 2px 10px;color:#3a4a47}
 .quick button{border:0;background:#fff;border-radius:18px;padding:12px 4px 10px;font:inherit;font-size:12px;font-weight:500;color:#1c1c1e;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 6px 18px rgba(0,0,0,.05);cursor:pointer}
 .quick span{font-size:28px;line-height:1;filter:drop-shadow(0 3px 4px rgba(0,0,0,.2))}
 
-/* navigasi kaca ala iOS */
-nav{background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border:0;border-top:.5px solid rgba(0,0,0,.1);border-radius:0;box-shadow:none;padding:6px 10px calc(6px + env(safe-area-inset-bottom));gap:0;align-items:center}
-nav button{font-size:10px;font-weight:500;color:#8e8e93;background:none;box-shadow:none;padding:5px 2px}
-nav button svg{stroke-width:1.5}
-nav button.on{background:none;box-shadow:none;color:#0e2f2d;font-weight:600}
-nav button[data-v=home],nav button[data-v=home].on{font-size:0;gap:0;width:64px;height:40px;margin:0 auto;padding:0;border-radius:20px;background:#0e2f2d;color:#fff;box-shadow:none}
-nav button[data-v=home] .nav-icon{width:22px;height:22px}
-nav button[data-v=home] svg{width:20px;height:20px}
+/* navigasi melayang */
+nav{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));max-width:420px;margin:0 auto;padding:6px;gap:2px;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border:0;border-radius:24px;box-shadow:0 10px 30px rgba(7,26,25,.14),0 0 0 .5px rgba(0,0,0,.06);align-items:stretch}
+nav button{font-size:10px;font-weight:500;color:#8e8e93;background:none;box-shadow:none;padding:8px 2px 7px;border-radius:18px;gap:3px;transition:color 200ms var(--ease),background-color 200ms var(--ease),transform 180ms var(--ease);-webkit-tap-highlight-color:transparent}
+nav button .nav-icon{width:24px;height:24px;transition:transform 220ms var(--ease)}
+nav button svg{width:22px;height:22px;stroke-width:1.75}
+nav button.on{background:rgba(11,79,73,.10);color:#0b4f49;font-weight:600;box-shadow:none}
+nav button.on .nav-icon{transform:translateY(-1px) scale(1.08)}
+nav button:active{transform:scale(.95)}
 
 /* kompas: tanpa jarum */
 #v-kiblat{background:linear-gradient(180deg,#1f4f4a 0%,#0e2f2d 55%,#061a19 100%);border-radius:26px;padding:20px 16px 26px;box-shadow:none}
@@ -286,6 +286,59 @@ nav button[data-v=home] svg{width:20px;height:20px}
 .needle:after{display:none}
 #qDeg{background:none;border:0;padding:0;color:#f0c46a;font-size:20px;font-weight:700}
 #compass{background:linear-gradient(135deg,#1f4f4a,#0a2423);border:.5px solid rgba(255,255,255,.18)}
+/* ===== TAHAP 2: motion, hero minimal, skeleton ===== */
+:root{--ease:cubic-bezier(.2,.8,.2,1)}
+body{overflow-x:hidden}
+@keyframes pageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes fadeOnly{from{opacity:0}to{opacity:1}}
+@keyframes shimmer{to{transform:translateX(100%)}}
+
+/* transisi halaman, kartu, buka-tutup teks (hanya transform + opacity) */
+.view{animation:pageIn 220ms var(--ease) backwards}
+.card,.ay,#reader{animation:fadeUp 240ms var(--ease) backwards}
+.cap.open{animation:fadeOnly 200ms var(--ease)}
+
+/* micro-interaction: tombol mengecil saat ditekan, efek halus */
+.btn,.sp-btn,.chip,.loc-chip,.quick button,.more,.row,.card{transition:transform 180ms var(--ease),opacity 180ms var(--ease),background-color 180ms var(--ease);-webkit-tap-highlight-color:transparent}
+.btn:active,.sp-btn:active,.chip:active,.loc-chip:active,.quick button:active{transform:scale(.97);opacity:.92;filter:none}
+.card:active,.row:active{transform:scale(.985)}
+.btn{box-shadow:0 1px 2px rgba(0,0,0,.10)}
+.sp-btn{box-shadow:0 1px 2px rgba(0,0,0,.20)}
+@media(hover:hover){.btn:hover,.sp-btn:hover,.loc-chip:hover{opacity:.92}.row:hover{background-color:rgba(14,47,45,.04)}.quick button:hover{transform:translateY(-1px)}}
+
+/* kartu waktu sholat: nama + countdown saja */
+.hero{padding:22px 22px 20px;border-radius:26px}
+.hero small{font-size:11px;letter-spacing:.5px;font-weight:500;opacity:.8}
+.hero h2{font-size:18px;font-weight:500;margin:14px 0 0;color:#fff;letter-spacing:-.2px}
+.cd{font-size:clamp(44px,14vw,58px);font-weight:600;letter-spacing:-2px;line-height:1.05;margin-top:2px;color:#fff;text-shadow:none;font-variant-numeric:tabular-nums}
+.hero-note,.mini{display:none}
+
+/* tile beranda: ikon outline Lucide */
+.quick span{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:rgba(14,74,69,.08);color:#0b4f49;font-size:0;filter:none}
+.quick svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+
+/* skeleton loading */
+.sk{position:relative;overflow:hidden;background:#fff;border-radius:20px;padding:14px;margin-bottom:13px}
+.sk i{display:block;border-radius:10px;background:#eceeed}
+.sk .l1{height:10px;width:35%;margin-bottom:12px}
+.sk .im{height:120px;border-radius:14px;margin-bottom:12px}
+.sk .l2{height:10px;width:100%;margin-bottom:8px}
+.sk .l3{height:10px;width:70%}
+.sk:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.75) 50%,transparent 70%);transform:translateX(-100%);animation:shimmer 1.4s infinite}
+.hs .sk{min-width:82%;max-width:440px;margin:0;flex:none;scroll-snap-align:start}
+
+/* responsive layar kecil */
+@media(max-width:360px){.quick{gap:8px}.quick button{font-size:11px;padding:10px 2px}.cd{letter-spacing:-1.5px}nav button{font-size:9.5px}}
+
+/* kurangi gerakan */
+@media(prefers-reduced-motion:reduce){
+  .view,.card,.ay,#reader{animation:fadeOnly 120ms linear backwards!important}
+  .btn:active,.sp-btn:active,.chip:active,.loc-chip:active,.quick button:active,.card:active,.row:active,nav button:active{transform:none}
+  nav button.on .nav-icon{transform:none}
+  .sk:after{display:none}
+  .orb,.orb i,.ring,.orb-wrap:before,.orb-icon svg,.orb .sheen{animation:none!important}
+}
 </style>
 </head>
 <body>
@@ -327,10 +380,10 @@ nav button[data-v=home] svg{width:20px;height:20px}
       </svg>
     </div>
     <div class="quick">
-  <button data-go="sholat"><span>🕌</span>Sholat</button>
-  <button data-go="kiblat"><span>🧭</span>Kiblat</button>
-  <button data-go="quran"><span>📖</span>Al-Qur'an</button>
-  <button data-go="berita"><span>📰</span>Berita</button>
+  <button data-go="sholat"><span><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>Sholat</button>
+  <button data-go="kiblat"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg></span>Kiblat</button>
+  <button data-go="quran"><span><svg viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span>Al-Qur'an</button>
+  <button data-go="berita"><span><svg viewBox="0 0 24 24"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg></span>Berita</button>
 </div>
     <h3>Program unggulan</h3><div id="prog" class="hs"><p class="muted">Memuat…</p></div>
     <h3>Berita terbaru</h3><div id="latest"></div>
@@ -362,11 +415,11 @@ nav button[data-v=home] svg{width:20px;height:20px}
   </section>
 </main>
 <nav aria-label="Navigasi utama">
-  <button data-v="sholat"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20v-5a6 6 0 0 1 12 0v5M12 3v2M9 8a3 3 0 0 1 6 0"/><path d="M3 20V9m18 11V9"/></svg></span>Sholat</button>
-  <button data-v="kiblat"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.3 5.3-5.3 2.3 2.3-5.3z"/></svg></span>Kiblat</button>
-  <button data-v="home" class="on"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>Beranda</button>
-  <button data-v="quran"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22zM4 5.5V22M8 7h8M8 11h8"/></svg></span>Al-Qur'an</button>
-  <button data-v="berita"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M5 4h14a1 1 0 0 1 1 1v15H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="M7 8h11M7 12h4m3 0h4M7 16h11"/></svg></span>Berita</button>
+  <button data-v="home" class="on"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>Beranda</button>
+  <button data-v="sholat"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>Sholat</button>
+  <button data-v="kiblat"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></svg></span>Kiblat</button>
+  <button data-v="quran"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span>Al-Qur'an</button>
+  <button data-v="berita"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg></span>Berita</button>
 </nav>
 <iframe name="br" class="hidden" title="koneksi" aria-hidden="true"></iframe>
 
@@ -515,7 +568,9 @@ document.addEventListener('click',e=>{
   const b=e.target.closest('.more');if(!b)return;
   const c=b.previousElementSibling.classList.toggle('open');b.textContent=c?'Tutup':'Selengkapnya';
 });
+const SK='<div class="sk"><i class="l1"></i><i class="im"></i><i class="l2"></i><i class="l3"></i></div>';
 async function loadNews(){
+$('#prog').innerHTML=SK+SK;$('#latest').innerHTML=SK;$('#newsList').innerHTML=SK+SK+SK;
   try{
     const r=await bridge('getPublicNews');if(!r.ok)throw new Error(r.message||'gagal');
     const list=r.news||[],pr=list.filter(n=>n.category==='Program Unggulan').slice(0,6);
@@ -523,7 +578,7 @@ async function loadNews(){
     $('#latest').innerHTML=list.slice(0,3).map(card).join('')||'<p class="muted">Belum ada berita.</p>';
     $('#newsList').innerHTML=list.map(card).join('')||'<p class="muted">Belum ada berita.</p>';
   }catch(e){
-    const m='<p class="muted">Berita belum bisa dimuat. Coba muat ulang halaman.</p>';
+   const m='<div class="card"><p class="muted" style="margin:0 0 10px">Konten sedang disiapkan. Periksa koneksi, lalu coba lagi.</p><button class="btn alt" type="button" onclick="loadNews()">Coba lagi</button></div>';
     $('#prog').innerHTML=m;$('#latest').innerHTML='';$('#newsList').innerHTML=m;
   }
 }
