@@ -954,6 +954,7 @@ showLoc();loadTimes();loadSchedules();loadNews();updQibla();applyUser();
 <button id="acctBtn" aria-label="Akun"></button>
 <div class="auth" id="auth" hidden><div class="auth-card"><button class="auth-x" id="authX" aria-label="Tutup">✕</button><h3 id="authT"></h3><p class="auth-s" id="authS"></p><div id="authBody"></div></div></div>
 
+<script>
 /* ===== AKUN (blok <script> baru, tempel tepat sebelum </body>) ===== */
 (function(){
 const AK='hz_u',ROLE={ortu:'Orang tua santri',santri:'Santri'};
@@ -1006,6 +1007,6 @@ window.hzAcct=()=>acct;
 paint();
 if(acct)call('userMe').then(r=>{if(r&&r.auth===false){acct=null;save();paint()}}).catch(()=>{});
 })();
-
+</script>
 </body>
 </html>
