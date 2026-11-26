@@ -468,6 +468,24 @@ nav button.on{background:rgba(16,59,54,.08);color:#103B36}
 .top>span{background:none;border:0;padding:0;font-size:13px;color:rgba(255,255,255,.82)}
 @media(max-width:370px){.brandmark,.brandmark img{width:44px;height:44px}.top b{font-size:17px}.top>span{font-size:12px}}
 
+#acctBtn{position:fixed;top:calc(env(safe-area-inset-top) + 10px);right:14px;z-index:60;width:36px;height:36px;border-radius:50%;border:0;background:rgba(16,59,54,.92);color:#fff;display:grid;place-items:center;font:700 14px Inter,system-ui;box-shadow:0 4px 14px rgba(0,0,0,.18);transition:transform .2s var(--ease)}
+#acctBtn:active{transform:scale(.92)}
+#acctBtn::after{content:"";width:16px;height:16px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21a8 8 0 0 1 16 0'/%3E%3C/svg%3E") center/contain no-repeat}
+#acctBtn.on::after{display:none}#acctBtn.on::before{content:attr(data-i)}
+.auth{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-end;justify-content:center;background:rgba(5,20,18,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.auth[hidden]{display:none}
+.auth-card{position:relative;width:100%;max-width:460px;background:#fff;border-radius:24px 24px 0 0;padding:26px 22px calc(26px + env(safe-area-inset-bottom));animation:aU .28s var(--ease)}
+@keyframes aU{from{transform:translateY(100%)}to{transform:none}}
+.auth-card h3{margin:0 0 4px;font-size:19px;color:#103B36}.auth-s{margin:0 0 16px;font-size:12.5px;color:#6b7a75;line-height:1.5}
+.auth-x{position:absolute;top:14px;right:16px;border:0;background:none;font-size:16px;color:#8a9893}
+.af{display:block;margin-bottom:12px}.af span{display:block;font-size:11.5px;color:#5c6b66;margin-bottom:5px}
+.af input,.af select{width:100%;padding:12px 13px;border:1px solid #dfe6e3;border-radius:12px;font:15px Inter,system-ui;background:#f7f9f8;outline:none}
+.af input:focus,.af select:focus{border-color:#103B36;background:#fff}
+.abtn{width:100%;padding:13px;border:0;border-radius:14px;background:#103B36;color:#fff;font:600 14.5px Inter,system-ui;margin-top:4px}
+.abtn.ghost{background:#eef2f0;color:#103B36}.abtn:disabled{opacity:.6}
+.alink{display:block;width:100%;border:0;background:none;padding:11px 0 0;font:500 13px Inter,system-ui;color:#103B36}
+.aerr{min-height:16px;font-size:12px;color:#c0392b;margin:2px 0 6px}
+
 </style>
 </head>
 <body>
@@ -933,5 +951,61 @@ showLoc();loadTimes();loadSchedules();loadNews();updQibla();applyUser();
   setTimeout(show,3500);
 })();
 </script>
+<button id="acctBtn" aria-label="Akun"></button>
+<div class="auth" id="auth" hidden><div class="auth-card"><button class="auth-x" id="authX" aria-label="Tutup">✕</button><h3 id="authT"></h3><p class="auth-s" id="authS"></p><div id="authBody"></div></div></div>
+
+/* ===== AKUN (blok <script> baru, tempel tepat sebelum </body>) ===== */
+(function(){
+const AK='hz_u',ROLE={ortu:'Orang tua santri',santri:'Santri'};
+let acct=null,after=null;
+try{acct=JSON.parse(localStorage.getItem(AK)||'null')}catch(e){}
+const save=()=>{try{acct?localStorage.setItem(AK,JSON.stringify(acct)):localStorage.removeItem(AK)}catch(e){}};
+const call=(a,d)=>bridge(a,Object.assign({},d,{utoken:acct?acct.token:''}));
+const btn=$('#acctBtn'),box=$('#auth'),body=$('#authBody');
+function paint(){btn.classList.toggle('on',!!acct);btn.dataset.i=acct?(acct.user.name||'?').trim()[0].toUpperCase():''}
+function close(){box.hidden=true}
+function fld(id,l,t,x){return `<label class="af"><span>${l}</span><input id="${id}" type="${t||'text'}" ${x||''}></label>`}
+function open(m){
+  m=m||(acct?'me':'in');box.hidden=false;let T,S,H;
+  if(m==='me'){T=acct.user.name;S=ROLE[acct.user.role]+' · akun aktif';H='<button class="abtn ghost" data-a="out">Keluar</button>'}
+  else if(m==='pend'){T='Menunggu persetujuan';S='Admin majelis akan memeriksa pendaftaran Anda. Coba masuk lagi setelah disetujui.';H='<button class="abtn" data-a="close">Mengerti</button>'}
+  else if(m==='up'){T='Daftar akun';S='Untuk orang tua santri dan santri. Akun aktif setelah disetujui admin.';
+    H=fld('aN','Nama lengkap','text','autocomplete="name" maxlength="60" value="'+esc(typeof user==='object'?user.name:'')+'"')+fld('aW','Nomor WhatsApp','tel','inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx"')+
+      '<label class="af"><span>Saya adalah</span><select id="aR"><option value="ortu">Orang tua santri</option><option value="santri">Santri</option></select></label>'+fld('aP','Password (min. 6 karakter)','password','autocomplete="new-password"')+
+      '<div class="aerr" id="aE"></div><button class="abtn" data-a="up">Kirim pendaftaran</button><button class="alink" data-a="to-in">Sudah punya akun? Masuk</button>'}
+  else{T='Masuk';S='Masuk untuk memakai notifikasi, penanda ayat, dan posting.';
+    H=fld('aW','Nomor WhatsApp','tel','inputmode="tel" autocomplete="username" placeholder="08xxxxxxxxxx"')+fld('aP','Password','password','autocomplete="current-password"')+
+      '<div class="aerr" id="aE"></div><button class="abtn" data-a="in">Masuk</button><button class="alink" data-a="to-up">Belum punya akun? Daftar</button><button class="alink" data-a="close">Lanjut sebagai tamu</button>'}
+  $('#authT').textContent=T;$('#authS').textContent=S;body.innerHTML=H;
+}
+async function send(act,data,b){
+  const e=$('#aE');e.textContent='';b.disabled=true;const t=b.textContent;b.textContent='Memproses…';
+  try{
+    const r=await call(act,data);
+    if(r&&r.pending)return open('pend');
+    if(!r||!r.ok)throw new Error((r&&r.message)||'Gagal. Periksa koneksi.');
+    acct={token:r.token,user:r.user};save();paint();close();
+    const f=after;after=null;if(f)f();
+  }catch(x){e.textContent=x.message;b.disabled=false;b.textContent=t}
+}
+body.addEventListener('click',ev=>{
+  const b=ev.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
+  if(a==='close')return close();
+  if(a==='to-up')return open('up');if(a==='to-in')return open('in');
+  if(a==='out'){acct=null;save();paint();return close()}
+  const wa=$('#aW').value.trim(),pw=$('#aP').value;
+  if(a==='in')return send('userLogin',{wa,password:pw},b);
+  if(a==='up')return send('register',{name:$('#aN').value,wa,role:$('#aR').value,password:pw},b);
+});
+btn.addEventListener('click',()=>open());
+$('#authX').addEventListener('click',close);
+box.addEventListener('click',e=>{if(e.target===box)close()});
+/* dipakai fitur lain: requireLogin(()=>{...}) */
+window.requireLogin=cb=>{if(acct)return cb();after=cb;open('in')};
+window.hzAcct=()=>acct;
+paint();
+if(acct)call('userMe').then(r=>{if(r&&r.auth===false){acct=null;save();paint()}}).catch(()=>{});
+})();
+
 </body>
 </html>
