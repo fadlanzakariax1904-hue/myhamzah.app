@@ -625,7 +625,7 @@ const CFG={
   APP:'MY HAMZA APP',
   CITY:{n:'Bandung',lat:-6.9175,lng:107.6191}
 };
-const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const $=(s,r=document)=>r.querySelector(s)||document.createElement('i'),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const esc=v=>String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 $('#appName').textContent=CFG.APP;
 
