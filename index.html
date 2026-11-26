@@ -503,6 +503,17 @@ html{background:#103B36}
 .ng-dots i.on{background:#fff}
 @media(max-width:370px){.top>span{padding-left:58px}.acct{width:38px;height:38px}}
 
+/* 1. putih menjorok ke atas */
+#ngaji{position:relative;border-radius:0!important;padding-bottom:36px!important}
+#ngaji::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:26px;background:#F5F5F7;border-radius:26px 26px 0 0;pointer-events:none}
+
+/* 2. nama aplikasi dan tanggal merapat ke logo */
+header.top :is(b,small,span,p,div){margin-top:0!important;margin-bottom:0!important;line-height:1.25!important}
+header.top{gap:12px}
+
+/* 3. posisi tombol akun lebih rapi */
+#acctBtn{top:calc(env(safe-area-inset-top) + 16px)}
+
 </style>
 </head>
 <body>
@@ -527,7 +538,6 @@ html{background:#103B36}
     <div class="brandmark" aria-hidden="true"><img src="logo.png" alt=""></div>
     <div class="brand-copy"><b id="appName"></b></div>
   </div>
-  <span id="hijri"></span><div class="acct" id="acctAv" aria-label="Akun">T</div>
 </header>
 <main>
   <section id="v-home" class="view">
