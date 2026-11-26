@@ -516,6 +516,17 @@ header.top{gap:12px}
 .ngaji{position:relative;border-radius:0;padding-bottom:42px}
 .ngaji::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:28px;background:#F5F5F7;border-radius:28px 28px 0 0;pointer-events:none}
 
+.bn{margin:14px 0 6px}.bn[hidden]{display:none}
+.bn-track{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;border-radius:28px}
+.bn-track::-webkit-scrollbar{display:none}
+.bn.one .bn-track{overflow-x:hidden}
+.bn-i{position:relative;flex:0 0 100%;aspect-ratio:16/7;border-radius:28px;overflow:hidden;scroll-snap-align:center;background:#103B36;display:block;box-shadow:0 10px 30px rgba(16,59,54,.18)}
+.bn-i img{width:100%;height:100%;object-fit:cover;display:block}
+.bn-i b{position:absolute;left:0;right:0;bottom:0;padding:26px 18px 14px;color:#fff;font:600 14px Inter,system-ui;background:linear-gradient(transparent,rgba(5,20,18,.72))}
+.bn-d{display:flex;justify-content:center;gap:5px;margin-top:9px}
+.bn-d i{width:5px;height:5px;border-radius:50%;background:#c9d3cf;transition:all .2s var(--ease)}
+.bn-d i.on{width:16px;border-radius:3px;background:#103B36}
+
 </style>
 </head>
 <body>
@@ -567,6 +578,7 @@ header.top{gap:12px}
   <button data-go="quran"><span><svg viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg></span>Al-Qur'an</button>
   <button data-go="berita"><span><svg viewBox="0 0 24 24"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg></span>Berita</button>
 </div>
+    <section class="bn" id="bn" hidden><div class="bn-track" id="bnTrack"></div><div class="bn-d" id="bnDots"></div></section>
     <h3>Program unggulan</h3><div id="prog" class="hs"><p class="muted">Memuat…</p></div>
     <h3>Berita terbaru</h3><div id="latest"></div>
   </section>
@@ -800,6 +812,19 @@ document.addEventListener('click',e=>{
   const c=b.previousElementSibling.classList.toggle('open');b.textContent=c?'Tutup':'Selengkapnya';
 });
 const SK='<div class="sk"><i class="l1"></i><i class="im"></i><i class="l2"></i><i class="l3"></i></div>';
+async function loadBanners(){
+  try{
+    const r=await bridge('getPublicBanners'),L=(r&&r.ok&&r.banners)||[],bn=$('#bn');
+    if(!L.length){bn.hidden=true;return}
+    $('#bnTrack').innerHTML=L.map(b=>{
+      const im=`<img src="${esc(b.img)}" alt="${esc(b.title)}" loading="lazy" decoding="async">${b.title?`<b>${esc(b.title)}</b>`:''}`;
+      return b.link?`<a class="bn-i" href="${esc(b.link)}" target="_blank" rel="noopener">${im}</a>`:`<div class="bn-i">${im}</div>`}).join('');
+    bn.classList.toggle('one',L.length===1);bn.hidden=false;
+    const d=$('#bnDots'),t=$('#bnTrack');
+    d.innerHTML=L.length>1?L.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join(''):'';
+    t.onscroll=()=>{const i=Math.round(t.scrollLeft/(t.clientWidth+12));[...d.children].forEach((x,j)=>x.classList.toggle('on',j===i))};
+  }catch(e){}
+}
 async function loadNews(){
 $('#prog').innerHTML=SK+SK;$('#latest').innerHTML=SK;$('#newsList').innerHTML=SK+SK+SK;
   try{
@@ -970,7 +995,7 @@ $('#ngTrack').addEventListener('scroll',()=>{
   });
 },{passive:true});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-ngLast>600000)loadSchedules()});
-showLoc();loadTimes();loadSchedules();loadNews();updQibla();applyUser();
+showLoc();loadTimes();loadSchedules();loadBanners();loadNews();updQibla();applyUser();
 /* ---------- halaman muat ---------- */
 (function(){
   const bootEl=$('#boot'),t0=performance.now();let shown=false;
