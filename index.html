@@ -538,6 +538,29 @@ header.top{position:sticky;top:0;z-index:40;background:#103B36;box-shadow:0 0 0 
 #ngTrack>.live::after{content:"";position:absolute;top:14px;right:14px;width:9px;height:9px;border-radius:50%;background:#2ecc71;animation:lv 1.6s infinite}
 @keyframes lv{0%{box-shadow:0 0 0 0 rgba(46,204,113,.55)}70%,100%{box-shadow:0 0 0 8px rgba(46,204,113,0)}}
 @media(prefers-reduced-motion:reduce){#ngTrack>.live::after{animation:none}}
+
+/* Program unggulan: poster 4:5 */
+.pg{position:relative;flex:0 0 auto;width:220px;aspect-ratio:4/5;border-radius:22px;overflow:hidden;scroll-snap-align:start;background:#103B36;box-shadow:0 8px 22px rgba(16,59,54,.16);cursor:pointer;transition:transform .2s var(--ease)}
+.pg:active,.mn:active{transform:scale(.97)}
+.pg img{width:100%;height:100%;object-fit:cover;display:block}
+.pg-t{position:absolute;left:0;right:0;bottom:0;padding:34px 14px 14px;background:linear-gradient(transparent,rgba(5,20,18,.84));color:#fff}
+.pg-t b{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font:600 13.5px/1.35 Inter,system-ui}
+@media(min-width:700px){.pg{width:260px}}
+/* Berita terbaru: kartu kecil */
+.mn{flex:0 0 auto;width:250px;scroll-snap-align:start;background:#fff;border:1px solid #e6ece9;border-radius:20px;padding:15px;cursor:pointer;transition:transform .2s var(--ease)}
+.mn .meta{margin-bottom:8px}
+.mn h4{margin:0;font:600 14px/1.4 Inter,system-ui;color:#103B36;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+@media(min-width:700px){.mn{width:300px}}
+#newsList .card{cursor:pointer}
+/* Halaman penuh */
+.det{position:fixed;inset:0;z-index:350;background:#F5F5F7;overflow-y:auto;-webkit-overflow-scrolling:touch;animation:aU .28s var(--ease)}
+.det[hidden]{display:none}
+.det-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 12px;background:#103B36;color:#fff;font:600 15px Inter,system-ui}
+.det-bar button{border:0;background:rgba(255,255,255,.14);color:#fff;width:34px;height:34px;border-radius:50%;font-size:18px}
+.det-body{max-width:680px;margin:0 auto;padding:20px 18px calc(40px + env(safe-area-inset-bottom))}
+.det-body h2{font:700 22px/1.3 Inter,system-ui;color:#103B36;margin:6px 0 14px}
+.det-body img{width:100%;border-radius:18px;margin-bottom:12px;display:block}
+.det-body p{white-space:pre-line;line-height:1.75;color:#3d4f48;font-size:15px}
   
 </style>
 </head>
@@ -593,7 +616,7 @@ header.top{position:sticky;top:0;z-index:40;background:#103B36;box-shadow:0 0 0 
 </div>
     <section class="bn" id="bn" hidden><div class="bn-track" id="bnTrack"></div><div class="bn-d" id="bnDots"></div></section>
     <h3>Program unggulan</h3><div id="prog" class="hs"><p class="muted">Memuat…</p></div>
-    <h3>Berita terbaru</h3><div id="latest"></div>
+    <h3>Berita terbaru</h3><div id="latest" class="hs"></div>
       </div>  
   </section>
 
@@ -815,9 +838,28 @@ addEventListener('message',e=>{
   const p=pend[m.requestId];if(!p)return;clearTimeout(p.t);delete pend[m.requestId];p.ok(m.result||{ok:false});
 });
 const fmt=d=>{const x=new Date(d+'T12:00:00');return isNaN(x)?'':x.toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'})};
+const NM=[];const reg=n=>NM.push(n)-1;
+const ttl=n=>String(n.caption||'').trim().split(/\n/)[0].slice(0,140);
+const hd=n=>`<div class="meta"><span class="tag">${esc(n.category)}</span>${esc(n.publisher||'')}${n.pubDate?' · '+fmt(n.pubDate):''}</div>`;
+function cardProg(n){const im=(n.images||[])[0];return `<article class="pg" data-n="${reg(n)}">${im?`<img src="${esc(im)}" loading="lazy" alt="" referrerpolicy="no-referrer">`:''}<div class="pg-t"><b>${esc(ttl(n))}</b></div></article>`}
+function cardMini(n){return `<article class="mn" data-n="${reg(n)}">${hd(n)}<h4>${esc(ttl(n))}</h4></article>`}
+function openDet(n){
+  const rest=String(n.caption||'').trim().split(/\n/).slice(1).join('\n').trim();
+  $('#detBody').innerHTML=hd(n)+`<h2>${esc(ttl(n))}</h2>`+(n.images||[]).map(u=>`<img src="${esc(u)}" alt="" referrerpolicy="no-referrer">`).join('')+(rest?`<p>${esc(rest)}</p>`:'');
+  $('#det').hidden=false;$('#det').scrollTop=0;document.body.style.overflow='hidden';
+  try{history.pushState({d:1},'')}catch(e){}
+}
+function closeDet(){$('#det').hidden=true;document.body.style.overflow=''}
+document.addEventListener('click',e=>{
+  if(e.target.closest('.more'))return;
+  if(e.target.closest('#detX'))return history.state&&history.state.d?history.back():closeDet();
+  const c=e.target.closest('[data-n]');if(!c)return;const n=NM[+c.dataset.n];if(n)openDet(n);
+});
+addEventListener('popstate',closeDet);
+
 function card(n){
   const im=n.images||[];
-  return `<article class="card"><div class="meta"><span class="tag">${esc(n.category)}</span>${esc(n.publisher||'')}${n.pubDate?' · '+fmt(n.pubDate):''}</div>`+
+  return `<article class="card" data-n="${reg(n)}"><div class="meta"><span class="tag">${esc(n.category)}</span>${esc(n.publisher||'')}${n.pubDate?' · '+fmt(n.pubDate):''}</div>`+
   (im.length?`<div class="pics">${im.map(u=>`<img src="${esc(u)}" loading="lazy" alt="" referrerpolicy="no-referrer">`).join('')}</div>`:'')+
   `<p class="cap">${esc(n.caption)}</p>${(n.caption||'').length>160?'<button class="more" type="button">Selengkapnya</button>':''}</article>`;
 }
@@ -864,8 +906,8 @@ $('#prog').innerHTML=SK+SK;$('#latest').innerHTML=SK;$('#newsList').innerHTML=SK
   try{
     const r=await bridge('getPublicNews');if(!r.ok)throw new Error(r.message||'gagal');
     const list=r.news||[],pr=list.filter(n=>n.category==='Program Unggulan').slice(0,6);
-    $('#prog').innerHTML=pr.length?pr.map(card).join(''):'<p class="muted">Belum ada program unggulan.</p>';
-    $('#latest').innerHTML=list.slice(0,3).map(card).join('')||'<p class="muted">Belum ada berita.</p>';
+    $('#prog').innerHTML=pr.length?pr.map(n=>cardProg(n)).join(''):'<p class="muted">Belum ada program unggulan.</p>';
+    $('#latest').innerHTML=list.slice(0,8).map(n=>cardMini(n)).join('')||'<p class="muted">Belum ada berita.</p>';
     $('#newsList').innerHTML=list.map(card).join('')||'<p class="muted">Belum ada berita.</p>';
   }catch(e){
    const m='<div class="card"><p class="muted" style="margin:0 0 10px">Konten sedang disiapkan. Periksa koneksi, lalu coba lagi.</p><button class="btn alt" type="button" onclick="loadNews()">Coba lagi</button></div>';
@@ -1098,6 +1140,7 @@ if(acct)call('userMe').then(r=>{if(r&&r.auth===false){acct=null;save();paint()}}
 </script>
 
 <script>setTimeout(function(){var b=document.getElementById('boot');if(b)b.style.display='none'},6000)</script>
+<div class="det" id="det" hidden><div class="det-bar"><button id="detX" aria-label="Kembali">←</button><span>Detail</span></div><div class="det-body" id="detBody"></div></div>
   
 </body>
 </html>
