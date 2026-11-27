@@ -565,6 +565,10 @@ header.top{position:sticky;top:0;z-index:40;background:#103B36;box-shadow:0 0 0 
 #prog,#latest{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(50% - 50vw);padding:0 calc(50vw - 50%) 8px;scroll-padding-left:17px;scrollbar-width:none}
 #prog::-webkit-scrollbar,#latest::-webkit-scrollbar{display:none}
 @media(min-width:700px){#prog,#latest{scroll-padding-left:22px}}
+
+.mn{padding:0;overflow:hidden}
+.mn-i{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#e8eeeb}
+.mn-b{padding:13px 15px 15px}
   
 </style>
 </head>
@@ -846,7 +850,7 @@ const NM=[];const reg=n=>NM.push(n)-1;
 const ttl=n=>String(n.caption||'').trim().split(/\n/)[0].slice(0,140);
 const hd=n=>`<div class="meta"><span class="tag">${esc(n.category)}</span>${esc(n.publisher||'')}${n.pubDate?' · '+fmt(n.pubDate):''}</div>`;
 function cardProg(n){const im=(n.images||[])[0];return `<article class="pg" data-n="${reg(n)}">${im?`<img src="${esc(im)}" loading="lazy" alt="" referrerpolicy="no-referrer">`:''}<div class="pg-t"><b>${esc(ttl(n))}</b></div></article>`}
-function cardMini(n){return `<article class="mn" data-n="${reg(n)}">${hd(n)}<h4>${esc(ttl(n))}</h4></article>`}
+function cardMini(n){const im=(n.images||[])[0];return `<article class="mn" data-n="${reg(n)}">${im?`<img class="mn-i" src="${esc(im)}" loading="lazy" alt="" referrerpolicy="no-referrer">`:''}<div class="mn-b">${hd(n)}<h4>${esc(ttl(n))}</h4></div></article>`}
 function openDet(n){
   const rest=String(n.caption||'').trim().split(/\n/).slice(1).join('\n').trim();
   $('#detBody').innerHTML=hd(n)+`<h2>${esc(ttl(n))}</h2>`+(n.images||[]).map(u=>`<img src="${esc(u)}" alt="" referrerpolicy="no-referrer">`).join('')+(rest?`<p>${esc(rest)}</p>`:'');
