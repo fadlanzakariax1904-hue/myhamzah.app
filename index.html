@@ -569,6 +569,36 @@ header.top{position:sticky;top:0;z-index:40;background:#103B36;box-shadow:0 0 0 
 .mn{padding:0;overflow:hidden}
 .mn-i{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#e8eeeb}
 .mn-b{padding:13px 15px 15px}
+
+.sh{--g1:#1e9be3;--g2:#c4ecfb;--sil:#47698a;position:relative;isolation:isolate;border-radius:28px;overflow:hidden;color:#fff;min-height:430px;padding:18px 20px 0;background:linear-gradient(180deg,var(--g1),var(--g2))}
+.sh[data-ph=night]{--g1:#171340;--g2:#34308a;--sil:#06051a}
+.sh[data-ph=dawn]{--g1:#4a3f9c;--g2:#ff9f8f;--sil:#4a3558}
+.sh[data-ph=day]{--g1:#1e9be3;--g2:#c4ecfb;--sil:#47698a}
+.sh[data-ph=sunset]{--g1:#ff5f3d;--g2:#ffbd7a;--sil:#8a463f}
+.sh[data-ph=dusk]{--g1:#5b3a9e;--g2:#9a86cf;--sil:#403a80}
+.sh-svg{position:absolute;inset:0;width:100%;height:100%;z-index:-1;color:var(--sil)}
+.sh-svg .sil{fill:var(--sil)}
+.sh-svg .sun,.sh-svg .moon,.sh-svg .stars{opacity:0;transition:opacity .6s,transform .6s}
+.sh[data-ph=night] :is(.moon,.stars),.sh[data-ph=dusk] :is(.moon,.stars){opacity:1}
+.sh[data-ph=day] .sun,.sh[data-ph=dawn] .sun,.sh[data-ph=sunset] .sun{opacity:1}
+.sh[data-ph=dawn] .sun,.sh[data-ph=sunset] .sun{transform:translateY(70px)}
+.sh-top{display:flex;justify-content:space-between;align-items:center;font:600 13px Inter,system-ui;letter-spacing:.3px}
+#v-sholat .sh .btn{background:rgba(255,255,255,.22);color:#fff;border:0;border-radius:99px;padding:7px 12px;font:600 12px Inter,system-ui;box-shadow:none}
+.sh-loc{display:block;text-align:center;margin-top:16px;font:600 15px Inter,system-ui;color:#fff}
+.sh-clock{text-align:center;font:700 46px/1.1 Inter,system-ui;font-variant-numeric:tabular-nums;letter-spacing:-1px;margin-top:6px}
+.sh-next{text-align:center;font:500 13px Inter,system-ui;margin-top:8px;opacity:.92}
+.sh-date{position:absolute;left:20px;bottom:22px;display:flex;flex-direction:column;gap:2px;font:600 13px Inter,system-ui;text-shadow:0 1px 6px rgba(0,0,0,.3)}
+.sh-date small{font-weight:500;opacity:.85;font-size:12px}
+#v-sholat .sh-list{margin-top:14px;background:#fff;border-radius:24px;padding:8px;box-shadow:0 8px 24px rgba(16,59,54,.08)}
+#v-sholat .sh-list .row{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border:0;border-radius:16px;color:#4a5c56;font-size:15px;background:none;margin:0}
+#v-sholat .sh-list .t{font-variant-numeric:tabular-nums}
+#v-sholat .sh-list .row.next{position:relative;background:#103B36;color:#fff;font-weight:700;padding-right:46px}
+#v-sholat .sh-list .row.next::after{content:"";position:absolute;right:16px;top:50%;margin-top:-9px;width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/%3E%3Cpath d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/%3E%3C/svg%3E") center/contain no-repeat}
+/* Kiblat: full hijau */
+#v-kiblat{margin:0 calc(50% - 50vw);padding:22px calc(50vw - 50%) 130px;min-height:100vh;background:radial-gradient(120% 70% at 50% 0,#17524a 0,#103B36 45%,#092B27 100%);color:#fff}
+#v-kiblat h2,#v-kiblat b,#v-kiblat p,#v-kiblat small,#v-kiblat span,#v-kiblat div{color:#fff}
+#v-kiblat .muted{opacity:.72}
+
   
 </style>
 </head>
@@ -629,10 +659,31 @@ header.top{position:sticky;top:0;z-index:40;background:#103B36;box-shadow:0 0 0 
   </section>
 
   <section id="v-sholat" class="view hidden">
-    <h2>Jadwal sholat</h2>
-    <div class="panel"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><b class="locName"></b><div class="muted">Metode Kemenag RI</div></div><button class="btn alt" id="gps">📍 Lokasiku</button></div></div>
-    <div class="panel" id="timeList"><p class="muted">Memuat jadwal…</p></div>
-  </section>
+  <div class="sh" id="sh" data-ph="day">
+    <svg class="sh-svg" viewBox="0 0 400 430" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <defs><mask id="shm"><rect width="400" height="430" fill="#fff"/><circle cx="222" cy="215" r="36" fill="#000"/></mask></defs>
+      <g class="stars" fill="#fff"><circle cx="46" cy="70" r="1.6"/><circle cx="110" cy="130" r="1.2"/><circle cx="330" cy="86" r="1.8"/><circle cx="360" cy="170" r="1.2"/><circle cx="70" cy="190" r="1.4"/><circle cx="290" cy="40" r="1.2"/></g>
+      <g class="sun"><circle cx="200" cy="240" r="88" fill="#fff" opacity=".1"/><circle cx="200" cy="240" r="64" fill="#fff" opacity=".14"/><circle cx="200" cy="240" r="44" fill="#fff6c2"/></g>
+      <g class="moon"><circle cx="200" cy="240" r="88" fill="#fff" opacity=".07"/><circle cx="200" cy="240" r="64" fill="#fff" opacity=".1"/><circle cx="200" cy="240" r="44" fill="#fff" opacity=".92" mask="url(#shm)"/></g>
+      <g class="sil" opacity=".45"><path d="M150 430V380c0-28 20-46 46-46s46 18 46 46v50z"/></g>
+      <g class="sil">
+        <rect x="0" y="392" width="150" height="38"/><path d="M36 392v-14c0-22 14-36 32-36s32 14 32 36v14z"/><rect x="118" y="350" width="7" height="42"/><path d="M116 350h11l-5.5-12z"/>
+        <path d="M262 430V345c0-40 24-64 54-64s54 24 54 64v85z"/>
+        <rect x="244" y="306" width="9" height="124"/><path d="M242 306h13l-6.5-16z"/>
+        <rect x="379" y="306" width="9" height="124"/><path d="M377 306h13l-6.5-16z"/>
+        <path d="M316 281v-14" stroke="currentColor" stroke-width="3"/><circle cx="316" cy="262" r="6"/>
+        <rect x="0" y="416" width="400" height="14"/>
+      </g>
+    </svg>
+    <div class="sh-top"><span>Waktu salat</span><button class="btn alt" id="gps">📍 Lokasiku</button></div>
+    <b class="locName sh-loc"></b>
+    <div class="sh-clock" id="shClock">--:--:--</div>
+    <div class="sh-next">Menuju <b id="shNext">…</b> · <span id="shCd">--:--:--</span></div>
+    <div class="sh-date"><small>Hari ini</small><span id="shDate"></span></div>
+  </div>
+  <div class="sh-list" id="timeList"><p class="muted">Memuat jadwal…</p></div>
+</section>
+
 
  <section id="v-kiblat" class="view hidden center">
   <div class="k-top"><h2>Arah kiblat</h2><button class="k-icon" id="kHelp" type="button" aria-label="Bantuan kalibrasi" aria-expanded="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></button></div>
@@ -1149,6 +1200,30 @@ if(acct)call('userMe').then(r=>{if(r&&r.auth===false){acct=null;save();paint()}}
 
 <script>setTimeout(function(){var b=document.getElementById('boot');if(b)b.style.display='none'},6000)</script>
 <div class="det" id="det" hidden><div class="det-bar"><button id="detX" aria-label="Kembali">←</button><span>Detail</span></div><div class="det-body" id="detBody"></div></div>
+
+<script>
+;(function(){
+  const sh=$('#sh');
+  function ph(){
+    if(typeof times==='undefined'||!times)return 'day';
+    const n=new Date(),c=n.getHours()*60+n.getMinutes(),m=k=>mins(times[k]);
+    if(c<m('Fajr')||c>=m('Isha'))return 'night';
+    if(c<m('Sunrise'))return 'dawn';
+    if(c<m('Asr'))return 'day';
+    if(c<m('Maghrib'))return 'sunset';
+    return 'dusk';
+  }
+  function upd(){
+    const n=new Date();
+    $('#shClock').textContent=[n.getHours(),n.getMinutes(),n.getSeconds()].map(p2).join(':');
+    sh.dataset.ph=ph();
+    $('#shNext').textContent=$('#nextName').textContent;
+    $('#shCd').textContent=$('#cd').textContent;
+    $('#shDate').textContent=n.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'})+' · '+$('#hijri').textContent;
+  }
+  upd();setInterval(upd,1000);
+})();
+</script>
   
 </body>
 </html>
