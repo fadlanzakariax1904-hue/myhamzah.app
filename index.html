@@ -527,7 +527,10 @@ header.top{gap:12px}
 header.top{position:sticky;top:0;z-index:40;background:#103B36;box-shadow:0 0 0 100vmax #103B36;clip-path:inset(0 -100vmax)}
 .ngaji{position:sticky;top:calc(83px + env(safe-area-inset-top));z-index:0;border-radius:0;padding-bottom:42px}
 .sheet{position:relative;z-index:1;background:#F5F5F7;border-radius:28px 28px 0 0;margin:-28px calc(50% - 50vw) 0;padding:26px calc(50vw - 50%) 0}
-
+#acctBtn{background:#fff;color:#103B36;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+#acctBtn::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23103B36' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21a8 8 0 0 1 16 0'/%3E%3C/svg%3E")}
+#acctBtn.photo{background-size:cover;background-position:center;color:transparent}
+  
 </style>
 </head>
 <body>
@@ -815,6 +818,29 @@ document.addEventListener('click',e=>{
   const c=b.previousElementSibling.classList.toggle('open');b.textContent=c?'Tutup':'Selengkapnya';
 });
 const SK='<div class="sk"><i class="l1"></i><i class="im"></i><i class="l2"></i><i class="l3"></i></div>';
+(function(){
+  const _b=bridge;
+  const wib=()=>{const p=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date()).reduce((o,x)=>(o[x.type]=x.value,o),{});return{d:p.year+'-'+p.month+'-'+p.day,m:(+p.hour%24)*60+ +p.minute}};
+  const mins=s=>{const m=/(\d{1,2})[:.](\d{2})/.exec(s||'');return m?+m[1]*60+ +m[2]:null};
+  bridge=function(a,d){
+    const q=_b(a,d);if(a!=='getPublicSchedules')return q;
+    return q.then(r=>{
+      if(!r||!r.ok||!Array.isArray(r.schedules))return r;
+      const n=wib();
+      const L=r.schedules.filter(s=>s.date===n.d||/hari ini/i.test(s.rel||'')).map(s=>{
+        const a=mins(s.start),b=mins(s.end);
+        return a!==null&&n.m>=a&&(b===null||n.m<b)?Object.assign({},s,{category:'Sedang berlangsung'}):s});
+      return Object.assign({},r,{schedules:L});
+    });
+  };
+  const trk=$('#ngTrack');
+  new MutationObserver(()=>{[...trk.children].forEach(c=>c.classList.toggle('live',/sedang berlangsung/i.test(c.textContent)))}).observe(trk,{childList:true});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&typeof loadSchedules==='function')loadSchedules()});
+})();
+#ngTrack>.live{position:relative;box-shadow:inset 0 0 0 2px #C9A96A}
+#ngTrack>.live::after{content:"";position:absolute;top:14px;right:14px;width:9px;height:9px;border-radius:50%;background:#2ecc71;animation:lv 1.6s infinite}
+@keyframes lv{0%{box-shadow:0 0 0 0 rgba(46,204,113,.55)}70%,100%{box-shadow:0 0 0 8px rgba(46,204,113,0)}}
+@media(prefers-reduced-motion:reduce){#ngTrack>.live::after{animation:none}}
 async function loadBanners(){
   try{
     const r=await bridge('getPublicBanners'),L=(r&&r.ok&&r.banners)||[],bn=$('#bn');
