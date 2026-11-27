@@ -595,9 +595,11 @@ header.top{position:sticky;top:0;z-index:40;background:#103B36;box-shadow:0 0 0 
 #v-sholat .sh-list .row.next{position:relative;background:#103B36;color:#fff;font-weight:700;padding-right:46px}
 #v-sholat .sh-list .row.next::after{content:"";position:absolute;right:16px;top:50%;margin-top:-9px;width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/%3E%3Cpath d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/%3E%3C/svg%3E") center/contain no-repeat}
 /* Kiblat: full hijau */
-#v-kiblat{margin:0 calc(50% - 50vw);padding:22px calc(50vw - 50%) 130px;min-height:100vh;background:radial-gradient(120% 70% at 50% 0,#17524a 0,#103B36 45%,#092B27 100%);color:#fff}
+#v-kiblat{margin:0 calc(50% - 50vw);padding:22px calc(50vw - 50%) 130px;min-height:100vh;background:#103B36;color:#fff}
+html:has(#v-kiblat:not(.hidden)),body:has(#v-kiblat:not(.hidden)){background:#103B36}
 #v-kiblat h2,#v-kiblat b,#v-kiblat p,#v-kiblat small,#v-kiblat span,#v-kiblat div{color:#fff}
 #v-kiblat .muted{opacity:.72}
+#v-sholat .sh{margin-top:16px}
 
   
 </style>
