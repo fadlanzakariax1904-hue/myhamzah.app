@@ -1195,7 +1195,7 @@ $('#ngTrack').addEventListener('scroll',()=>{
   });
 },{passive:true});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-ngLast>600000)loadSchedules()});
-showLoc();loadTimes();loadSchedules();loadBanners();loadNews();loadReactions();updQibla();applyUser();
+showLoc();loadTimes();loadSchedules();loadBanners();loadNews();typeof loadReactions==='function'&&loadReactions();updQibla();applyUser();
 /* ---------- halaman muat ---------- */
 (function(){
   const bootEl=$('#boot'),t0=performance.now();let shown=false;
