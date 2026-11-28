@@ -604,6 +604,53 @@ html:has(#v-kiblat:not(.hidden)),body:has(#v-kiblat:not(.hidden)){background:#10
 #v-kiblat .muted{opacity:.72}
 #v-sholat .sh{margin-top:16px}
 
+/* ===== Berita layar penuh ===== */
+#feed{position:fixed;inset:0;z-index:30;background:#07201d}
+#feed[hidden]{display:none}
+body:has(#feed:not([hidden])) :is(header.top,#acctBtn){display:none}
+.nf-tabs{position:absolute;top:calc(env(safe-area-inset-top) + 16px);left:0;right:0;z-index:5;display:flex;justify-content:center;gap:24px;pointer-events:none}
+.nf-tabs button{pointer-events:auto;background:none;border:0;color:rgba(255,255,255,.68);font:700 14px Inter,system-ui;letter-spacing:.7px;text-transform:uppercase;padding:6px 2px;border-bottom:2px solid transparent;transition:all .2s var(--ease)}
+.nf-tabs button.on{color:#fff;border-color:#fff}
+.nf-scroll{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior:contain}
+.nf-scroll::-webkit-scrollbar{display:none}
+.ns{position:relative;height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;background:#0c2a27}
+.ns>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ns::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,18,16,.8) 0,rgba(5,18,16,0) 26%,rgba(5,18,16,0) 46%,rgba(5,18,16,.95) 100%)}
+.ns-tap{position:absolute;inset:0;z-index:2}
+.ns-b{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:0 20px calc(108px + env(safe-area-inset-bottom));color:#fff;pointer-events:none}
+.ns-b .tag{display:inline-block;background:#C9A96A;color:#103B36;font:800 11px Inter,system-ui;letter-spacing:.6px;text-transform:uppercase;padding:4px 10px;border-radius:5px}
+.ns-b h3{margin:10px 0 6px;font:700 22px/1.28 Inter,system-ui;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.35);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ns-b time{display:block;font:500 13px Inter,system-ui;opacity:.82}
+.ns-b .rx{pointer-events:auto;margin-top:14px;color:#fff}
+.ns-empty{display:grid;place-items:center;color:#fff;opacity:.8}
+/* like + komentar */
+.rx{display:flex;gap:16px;align-items:center}
+.rx button{display:inline-flex;align-items:center;gap:5px;border:0;background:none;padding:4px 0;color:inherit;font:600 12.5px Inter,system-ui;opacity:.88;transition:transform .15s var(--ease)}
+.rx button:active{transform:scale(.9)}
+.rx svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rx .on{color:#ff5a6e;opacity:1}.rx .on svg{fill:currentColor}
+.mn .rx{margin-top:10px;color:#6b7a75}
+.det-body .rx{margin:0 0 14px;color:#103B36}
+/* sheet komentar */
+.cm{position:fixed;inset:0;z-index:360;background:rgba(5,20,18,.55);display:flex;align-items:flex-end;justify-content:center}
+.cm[hidden]{display:none}
+.cm-card{width:100%;max-width:520px;max-height:82vh;background:#fff;border-radius:24px 24px 0 0;display:flex;flex-direction:column;animation:aU .28s var(--ease)}
+.cm-h{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;font:700 16px Inter,system-ui;color:#103B36;border-bottom:1px solid #eef2f0}
+.cm-h button{border:0;background:none;font-size:16px;color:#8a9893}
+.cm-list{flex:1;overflow-y:auto;padding:6px 20px;min-height:120px}
+.cm-i{padding:11px 0;border-bottom:1px solid #f1f4f3}
+.cm-i b{font:700 13px Inter,system-ui;color:#103B36}.cm-i span{margin-left:8px;font:400 11px Inter,system-ui;color:#97a39e}
+.cm-i p{margin:4px 0 0;font:400 14px/1.5 Inter,system-ui;color:#33423d;white-space:pre-line;word-break:break-word}
+.cm-e{text-align:center;color:#8a9893;font-size:13px;padding:26px 0}
+.cm-f{padding:10px 16px calc(14px + env(safe-area-inset-bottom));border-top:1px solid #eef2f0}
+.cm-f input{width:100%;box-sizing:border-box;padding:11px 13px;border:1px solid #dfe6e3;border-radius:12px;font:14px Inter,system-ui;background:#f7f9f8;outline:none}
+.cm-r{display:flex;gap:8px;margin-top:8px}
+.cm-r button{border:0;border-radius:12px;background:#103B36;color:#fff;font:600 14px Inter,system-ui;padding:0 18px}
+.cm-r button:disabled{opacity:.6}
+/* jadwal selesai */
+#ngTrack>.done{opacity:.6}
+
+
   
 </style>
 </head>
@@ -732,6 +779,19 @@ html:has(#v-kiblat:not(.hidden)),body:has(#v-kiblat:not(.hidden)){background:#10
   <button data-v="berita"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M15 18h-5"/><path d="M18 14h-8"/><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="10" y="6" rx="1"/></svg></span>Berita</button>
 </nav>
 <iframe name="br" class="hidden" title="koneksi" aria-hidden="true"></iframe>
+
+<div id="feed" hidden>
+  <div class="nf-tabs"><button class="on" data-f="all">Terbaru</button><button data-f="prog">Program</button></div>
+  <div class="nf-scroll" id="nfScroll"></div>
+</div>
+<div class="cm" id="cm" hidden>
+  <div class="cm-card">
+    <div class="cm-h"><b>Komentar</b><button id="cmX" aria-label="Tutup">✕</button></div>
+    <div class="cm-list" id="cmList"></div>
+    <div class="cm-f"><input id="cmName" placeholder="Nama (boleh dikosongkan)" maxlength="40" autocomplete="name"><div class="cm-r"><input id="cmText" placeholder="Tulis komentar…" maxlength="300"><button id="cmSend">Kirim</button></div></div>
+  </div>
+</div>
+
 
 <script>
 const CFG={
@@ -972,7 +1032,7 @@ $('#prog').innerHTML=SK+SK;$('#latest').innerHTML=SK;$('#newsList').innerHTML=SK
     const list=r.news||[],pr=list.filter(n=>n.category==='Program Unggulan').slice(0,6);
     $('#prog').innerHTML=pr.length?pr.map(n=>cardProg(n)).join(''):'<p class="muted">Belum ada program unggulan.</p>';
     $('#latest').innerHTML=list.slice(0,8).map(n=>cardMini(n)).join('')||'<p class="muted">Belum ada berita.</p>';
-    $('#newsList').innerHTML=list.map(card).join('')||'<p class="muted">Belum ada berita.</p>';
+    setFeed(list);
   }catch(e){
    const m='<div class="card"><p class="muted" style="margin:0 0 10px">Konten sedang disiapkan. Periksa koneksi, lalu coba lagi.</p><button class="btn alt" type="button" onclick="loadNews()">Coba lagi</button></div>';
     $('#prog').innerHTML=m;$('#latest').innerHTML='';$('#newsList').innerHTML=m;
@@ -1135,7 +1195,7 @@ $('#ngTrack').addEventListener('scroll',()=>{
   });
 },{passive:true});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-ngLast>600000)loadSchedules()});
-showLoc();loadTimes();loadSchedules();loadBanners();loadNews();updQibla();applyUser();
+showLoc();loadTimes();loadSchedules();loadBanners();loadNews();loadReactions();updQibla();applyUser();
 /* ---------- halaman muat ---------- */
 (function(){
   const bootEl=$('#boot'),t0=performance.now();let shown=false;
@@ -1228,6 +1288,73 @@ if(acct)call('userMe').then(r=>{if(r&&r.auth===false){acct=null;save();paint()}}
   }
   upd();setInterval(upd,1000);
 })();
+
+/* ===== BERITA LAYAR PENUH + LIKE + KOMENTAR (tempel dalam <script> sendiri sebelum </body>) ===== */
+;(function(){
+  let DEV='';
+  try{DEV=localStorage.getItem('hz_dev')||'';if(!DEV){DEV='d'+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('hz_dev',DEV)}}
+  catch(e){DEV='d'+Math.random().toString(36).slice(2)+Date.now().toString(36)}
+  const RX={l:{},c:{},m:new Set()};
+  const IL='<svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
+  const IC='<svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l2-5.2A8.4 8.4 0 1 1 21 11.5z"/></svg>';
+  window.rxBar=id=>`<div class="rx"><button type="button" class="${RX.m.has(id)?'on':''}" data-like="${esc(id)}" aria-label="Suka">${IL}<i>${RX.l[id]||0}</i></button><button type="button" data-cm="${esc(id)}" aria-label="Komentar">${IC}<i>${RX.c[id]||0}</i></button></div>`;
+  window.rxRefresh=()=>{
+    $$('[data-like]').forEach(b=>{const id=b.dataset.like;b.classList.toggle('on',RX.m.has(id));b.lastElementChild.textContent=RX.l[id]||0});
+    $$('[data-cm]').forEach(b=>{b.lastElementChild.textContent=RX.c[b.dataset.cm]||0});
+  };
+  window.loadReactions=async()=>{
+    try{const r=await bridge('getReactions',{device:DEV});if(r&&r.ok){RX.l=r.likes||{};RX.c=r.comments||{};RX.m=new Set(r.mine||[]);rxRefresh()}}catch(e){}
+  };
+  document.addEventListener('click',async e=>{
+    const lb=e.target.closest('[data-like]'),cb=e.target.closest('[data-cm]');
+    if(!lb&&!cb)return;
+    e.stopPropagation();e.preventDefault();
+    if(cb)return openCm(cb.dataset.cm);
+    const id=lb.dataset.like,was=RX.m.has(id);
+    was?RX.m.delete(id):RX.m.add(id);RX.l[id]=Math.max(0,(RX.l[id]||0)+(was?-1:1));rxRefresh();
+    try{
+      const r=await bridge('toggleLike',{newsId:id,device:DEV});
+      if(!r||!r.ok)throw 0;
+      RX.l[id]=r.count;r.liked?RX.m.add(id):RX.m.delete(id);
+    }catch(x){was?RX.m.add(id):RX.m.delete(id);RX.l[id]=Math.max(0,(RX.l[id]||0)+(was?1:-1))}
+    rxRefresh();
+  },true);
+  /* komentar */
+  let CMID='';
+  function drawCm(L){$('#cmList').innerHTML=L.length?L.map(c=>`<div class="cm-i"><b>${esc(c.name)}</b><span>${esc(c.time)}</span><p>${esc(c.text)}</p></div>`).join(''):'<p class="cm-e">Belum ada komentar. Jadilah yang pertama.</p>'}
+  async function openCm(id){
+    CMID=id;$('#cm').hidden=false;$('#cmList').innerHTML='<p class="cm-e">Memuat…</p>';
+    try{$('#cmName').value=localStorage.getItem('hz_cn')||((typeof user==='object'&&user.name)||'')}catch(e){}
+    try{const r=await bridge('getComments',{newsId:id});drawCm(r&&r.ok?r.comments:[])}catch(x){$('#cmList').innerHTML='<p class="cm-e">Gagal memuat komentar.</p>'}
+  }
+  $('#cmX').onclick=()=>{$('#cm').hidden=true};
+  $('#cm').addEventListener('click',e=>{if(e.target.id==='cm')$('#cm').hidden=true});
+  $('#cmSend').onclick=async()=>{
+    const t=$('#cmText').value.trim(),n=$('#cmName').value.trim(),b=$('#cmSend');if(!t)return;
+    b.disabled=true;
+    try{
+      const r=await bridge('addComment',{newsId:CMID,device:DEV,name:n,text:t});
+      if(!r||!r.ok)throw new Error((r&&r.message)||'Gagal mengirim.');
+      try{localStorage.setItem('hz_cn',n)}catch(e){}
+      $('#cmText').value='';RX.c[CMID]=(RX.c[CMID]||0)+1;rxRefresh();
+      const r2=await bridge('getComments',{newsId:CMID});drawCm(r2&&r2.ok?r2.comments:[]);
+    }catch(x){alert(x.message)}finally{b.disabled=false}
+  };
+  /* feed layar penuh */
+  let LIST=[],FT='all';
+  function drawFeed(){
+    const L=FT==='prog'?LIST.filter(n=>n.category==='Program Unggulan'):LIST;
+    $('#nfScroll').innerHTML=L.length?L.map(n=>{const im=(n.images||[])[0];
+      return `<article class="ns">${im?`<img src="${esc(im)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:''}<div class="ns-tap" data-n="${reg(n)}"></div><div class="ns-b"><span class="tag">${esc(n.category)}</span><h3>${esc(ttl(n))}</h3><time>${n.pubDate?fmt(n.pubDate):''}${n.publisher?' · '+esc(n.publisher):''}</time>${rxBar(n.id)}</div></article>`}).join(''):'<div class="ns ns-empty"><p>Belum ada berita.</p></div>';
+    $('#nfScroll').scrollTop=0;
+  }
+  window.setFeed=list=>{LIST=list||[];drawFeed()};
+  $$('.nf-tabs button').forEach(b=>b.onclick=()=>{FT=b.dataset.f;$$('.nf-tabs button').forEach(x=>x.classList.toggle('on',x===b));drawFeed()});
+  /* tampil hanya di tab Berita */
+  const home=$('[data-v="home"]'),navBox=home&&home.parentElement;if(navBox)navBox.style.zIndex=60;
+  const _go=go;go=function(v){_go.apply(this,arguments);$('#feed').hidden=v!=='berita'};
+})();
+
 </script>
   
 </body>
