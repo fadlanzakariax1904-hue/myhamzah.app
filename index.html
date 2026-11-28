@@ -966,10 +966,10 @@ const NM=[];const reg=n=>NM.push(n)-1;
 const ttl=n=>String(n.caption||'').trim().split(/\n/)[0].slice(0,140);
 const hd=n=>`<div class="meta"><span class="tag">${esc(n.category)}</span>${esc(n.publisher||'')}${n.pubDate?' · '+fmt(n.pubDate):''}</div>`;
 function cardProg(n){const im=(n.images||[])[0];return `<article class="pg" data-n="${reg(n)}">${im?`<img src="${esc(im)}" loading="lazy" alt="" referrerpolicy="no-referrer">`:''}<div class="pg-t"><b>${esc(ttl(n))}</b></div></article>`}
-function cardMini(n){const im=(n.images||[])[0];return `<article class="mn" data-n="${reg(n)}">${im?`<img class="mn-i" src="${esc(im)}" loading="lazy" alt="" referrerpolicy="no-referrer">`:''}<div class="mn-b">${hd(n)}<h4>${esc(ttl(n))}</h4></div></article>`}
+function cardMini(n){const im=(n.images||[])[0];return `<article class="mn" data-n="${reg(n)}">${im?`<img class="mn-i" src="${esc(im)}" loading="lazy" alt="" referrerpolicy="no-referrer">`:''}<div class="mn-b">${hd(n)}<h4>${esc(ttl(n))}</h4>${rxBar(n.id)}</div></article>`}
 function openDet(n){
   const rest=String(n.caption||'').trim().split(/\n/).slice(1).join('\n').trim();
-  $('#detBody').innerHTML=hd(n)+`<h2>${esc(ttl(n))}</h2>`+(n.images||[]).map(u=>`<img src="${esc(u)}" alt="" referrerpolicy="no-referrer">`).join('')+(rest?`<p>${esc(rest)}</p>`:'');
+  $('#detBody').innerHTML=hd(n)+`<h2>${esc(ttl(n))}</h2>${rxBar(n.id)}`+(n.images||[]).map(u=>`<img src="${esc(u)}" alt="" referrerpolicy="no-referrer">`).join('')+(rest?`<p>${esc(rest)}</p>`:'');
   $('#det').hidden=false;$('#det').scrollTop=0;document.body.style.overflow='hidden';
   try{history.pushState({d:1},'')}catch(e){}
 }
