@@ -1353,6 +1353,8 @@ if(acct)call('userMe').then(r=>{if(r&&r.auth===false){acct=null;save();paint()}}
   /* tampil hanya di tab Berita */
   const home=$('[data-v="home"]'),navBox=home&&home.parentElement;if(navBox)navBox.style.zIndex=60;
   const _go=go;go=function(v){_go.apply(this,arguments);$('#feed').hidden=v!=='berita'};
+    const _bx=bridge;
+  bridge=function(a){const q=_bx.apply(this,arguments);if(a==='getPublicNews')q.then(r=>{if(r&&r.ok&&Array.isArray(r.news))setFeed(r.news)}).catch(()=>{});return q};
 })();
 
 </script>
