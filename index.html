@@ -651,7 +651,40 @@ body:has(#feed:not([hidden])) :is(header.top,#acctBtn){display:none}
 #ngTrack>.done{opacity:.6}
 .ngaji{margin-bottom:0!important;border-radius:0!important;padding-bottom:50px!important}
 
-
+/* ===== Tab Sholat layar penuh ===== */
+.sv{--g1:#15103f;--g2:#4a3f9a;--sil:#05040f;--ph:clamp(250px,34vh,320px);position:fixed;inset:0;z-index:30;overflow:hidden;color:#fff;background:linear-gradient(180deg,var(--g1) 0,var(--g2) 100%);font-family:Inter,system-ui,sans-serif}
+.sv[hidden]{display:none}
+.sv[data-ph=night]{--g1:#15103f;--g2:#4a3f9a;--sil:#05040f}
+.sv[data-ph=dawn]{--g1:#3b3490;--g2:#f39a8d;--sil:#2b1d3d}
+.sv[data-ph=day]{--g1:#1e8fe0;--g2:#bfe8fb;--sil:#2f5577}
+.sv[data-ph=sunset]{--g1:#f0523a;--g2:#ffb978;--sil:#5a2a2c}
+.sv[data-ph=dusk]{--g1:#4b2f95;--g2:#9684cf;--sil:#2d2860}
+body:has(#sh:not([hidden])) :is(header.top,#acctBtn){display:none}
+.sv-svg{position:absolute;inset:0;width:100%;height:100%;color:var(--sil)}
+.sv-svg .sil{fill:var(--sil)}
+.sv-svg .sun,.sv-svg .moon,.sv-svg .stars{opacity:0;transition:opacity .6s,transform .6s}
+.sv[data-ph=night] :is(.moon,.stars),.sv[data-ph=dusk] :is(.moon,.stars){opacity:1}
+.sv[data-ph=day] .sun,.sv[data-ph=dawn] .sun,.sv[data-ph=sunset] .sun{opacity:1}
+.sv[data-ph=dawn] .sun,.sv[data-ph=sunset] .sun{transform:translateY(120px)}
+.sv-top{position:absolute;top:calc(env(safe-area-inset-top) + 12px);left:16px;right:16px;z-index:3;display:flex;align-items:center;justify-content:space-between;font:600 15px Inter,system-ui}
+.sv-btn{width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;padding:0;transition:transform .15s var(--ease)}
+.sv-btn:active{transform:scale(.92)}
+.sv-btn img{width:28px;height:28px;object-fit:contain;border-radius:50%}
+.sv-btn svg{width:19px;height:19px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sv-head{position:absolute;top:calc(env(safe-area-inset-top) + 74px);left:0;right:0;text-align:center;z-index:3}
+.sv-loc{display:block;font:600 17px Inter,system-ui;color:#fff}
+.sv-clock{margin-top:8px;font:800 46px/1.1 Montserrat,Inter,system-ui;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.sv-next{margin-top:8px;font:500 13px Inter,system-ui;opacity:.85}
+.sv-date{position:absolute;left:20px;bottom:calc(var(--ph) + 14px);z-index:3;display:flex;flex-direction:column;gap:3px;font:500 13px/1.35 Inter,system-ui;text-shadow:0 1px 6px rgba(0,0,0,.35)}
+.sv-date small{font-size:13px;opacity:.9}
+.sv-panel{position:absolute;left:0;right:0;bottom:0;height:var(--ph);z-index:2;border-radius:28px 28px 0 0;background:linear-gradient(180deg,rgba(40,32,110,.74),rgba(10,8,34,.96));padding:0 14px calc(10px + env(safe-area-inset-bottom))}
+#sh .sv-list{position:relative;height:100%;overflow-y:auto;padding:66px 0;scrollbar-width:none;-webkit-mask-image:linear-gradient(transparent 0,#000 24%,#000 76%,transparent 100%);mask-image:linear-gradient(transparent 0,#000 24%,#000 76%,transparent 100%)}
+#sh .sv-list::-webkit-scrollbar{display:none}
+#sh .sv-list .row{display:flex;justify-content:space-between;align-items:center;height:52px;padding:0 20px;border:0;border-radius:14px;margin:0;background:none;color:rgba(255,255,255,.55);font:500 15px Inter,system-ui;box-shadow:none}
+#sh .sv-list .t{font-variant-numeric:tabular-nums}
+#sh .sv-list .row.next{position:relative;background:rgba(255,255,255,.13);color:#fff;font-weight:800;padding-right:54px}
+#sh .sv-list .row.next::after{content:"";position:absolute;right:18px;top:50%;margin-top:-9px;width:18px;height:18px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9'/%3E%3Cpath d='M10.3 21a1.94 1.94 0 0 0 3.4 0'/%3E%3C/svg%3E") center/contain no-repeat}
+#sh .muted{color:rgba(255,255,255,.6);text-align:center;margin:0;padding-top:20px}
   
 </style>
 </head>
@@ -711,32 +744,7 @@ body:has(#feed:not([hidden])) :is(header.top,#acctBtn){display:none}
       </div>  
   </section>
 
-  <section id="v-sholat" class="view hidden">
-  <div class="sh" id="sh" data-ph="day">
-    <svg class="sh-svg" viewBox="0 0 400 430" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-      <defs><mask id="shm"><rect width="400" height="430" fill="#fff"/><circle cx="222" cy="215" r="36" fill="#000"/></mask></defs>
-      <g class="stars" fill="#fff"><circle cx="46" cy="70" r="1.6"/><circle cx="110" cy="130" r="1.2"/><circle cx="330" cy="86" r="1.8"/><circle cx="360" cy="170" r="1.2"/><circle cx="70" cy="190" r="1.4"/><circle cx="290" cy="40" r="1.2"/></g>
-      <g class="sun"><circle cx="200" cy="240" r="88" fill="#fff" opacity=".1"/><circle cx="200" cy="240" r="64" fill="#fff" opacity=".14"/><circle cx="200" cy="240" r="44" fill="#fff6c2"/></g>
-      <g class="moon"><circle cx="200" cy="240" r="88" fill="#fff" opacity=".07"/><circle cx="200" cy="240" r="64" fill="#fff" opacity=".1"/><circle cx="200" cy="240" r="44" fill="#fff" opacity=".92" mask="url(#shm)"/></g>
-      <g class="sil" opacity=".45"><path d="M150 430V380c0-28 20-46 46-46s46 18 46 46v50z"/></g>
-      <g class="sil">
-        <rect x="0" y="392" width="150" height="38"/><path d="M36 392v-14c0-22 14-36 32-36s32 14 32 36v14z"/><rect x="118" y="350" width="7" height="42"/><path d="M116 350h11l-5.5-12z"/>
-        <path d="M262 430V345c0-40 24-64 54-64s54 24 54 64v85z"/>
-        <rect x="244" y="306" width="9" height="124"/><path d="M242 306h13l-6.5-16z"/>
-        <rect x="379" y="306" width="9" height="124"/><path d="M377 306h13l-6.5-16z"/>
-        <path d="M316 281v-14" stroke="currentColor" stroke-width="3"/><circle cx="316" cy="262" r="6"/>
-        <rect x="0" y="416" width="400" height="14"/>
-      </g>
-    </svg>
-    <div class="sh-top"><span>Waktu salat</span><button class="btn alt" id="gps">📍 Lokasiku</button></div>
-    <b class="locName sh-loc"></b>
-    <div class="sh-clock" id="shClock">--:--:--</div>
-    <div class="sh-next">Menuju <b id="shNext">…</b> · <span id="shCd">--:--:--</span></div>
-    <div class="sh-date"><small>Hari ini</small><span id="shDate"></span></div>
-  </div>
-  <div class="sh-list" id="timeList"><p class="muted">Memuat jadwal…</p></div>
-</section>
-
+  <section id="v-sholat" class="view hidden"></section>
 
  <section id="v-kiblat" class="view hidden center">
   <div class="k-top"><h2>Arah kiblat</h2><button class="k-icon" id="kHelp" type="button" aria-label="Bantuan kalibrasi" aria-expanded="false"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg></button></div>
@@ -772,6 +780,40 @@ body:has(#feed:not([hidden])) :is(header.top,#acctBtn){display:none}
     <h2>Berita & kegiatan</h2><div id="newsList"><p class="muted">Memuat…</p></div>
   </section>
 </main>
+
+<div class="sv" id="sh" data-ph="night" hidden>
+  <svg class="sv-svg" viewBox="0 0 400 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs><mask id="svm"><rect width="400" height="800" fill="#fff"/><circle cx="216" cy="272" r="42" fill="#000"/></mask></defs>
+    <g class="stars" fill="#fff">
+      <path transform="translate(64 236)" d="M0-9 2.2-2.2 9 0 2.2 2.2 0 9-2.2 2.2-9 0-2.2-2.2z"/>
+      <path transform="translate(334 214) scale(.7)" d="M0-9 2.2-2.2 9 0 2.2 2.2 0 9-2.2 2.2-9 0-2.2-2.2z"/>
+      <path transform="translate(318 330) scale(.55)" d="M0-9 2.2-2.2 9 0 2.2 2.2 0 9-2.2 2.2-9 0-2.2-2.2z"/>
+      <circle cx="36" cy="190" r="1.4"/><circle cx="366" cy="282" r="1.5"/><circle cx="116" cy="172" r="1.2"/><circle cx="30" cy="370" r="1.3"/>
+    </g>
+    <g class="sun"><circle cx="190" cy="300" r="112" fill="#fff" opacity=".07"/><circle cx="190" cy="300" r="86" fill="#fff" opacity=".1"/><circle cx="190" cy="300" r="62" fill="#fff" opacity=".14"/><circle cx="190" cy="300" r="42" fill="#fff6c2"/></g>
+    <g class="moon"><circle cx="190" cy="300" r="112" fill="#fff" opacity=".06"/><circle cx="190" cy="300" r="86" fill="#fff" opacity=".09"/><circle cx="190" cy="300" r="62" fill="#fff" opacity=".13"/><circle cx="190" cy="300" r="48" fill="#fff" opacity=".96" mask="url(#svm)"/></g>
+    <g class="sil" opacity=".4"><path d="M110 800V520c0-40 28-68 66-68s66 28 66 68v280z"/></g>
+    <g class="sil">
+      <rect x="0" y="540" width="170" height="260"/><path d="M24 540v-16c0-30 22-48 46-48s46 18 46 48v16z"/><rect x="130" y="446" width="10" height="94"/><path d="M127 446h16l-8-26z"/>
+      <path d="M262 800V520c0-56 32-96 72-96s72 40 72 96v280z"/>
+      <rect x="238" y="400" width="11" height="400"/><path d="M235 400h17l-8.5-26z"/>
+      <path d="M334 424v-30" stroke="currentColor" stroke-width="3"/><circle cx="334" cy="386" r="7"/>
+    </g>
+  </svg>
+  <div class="sv-top">
+    <button class="sv-btn" id="svBack" aria-label="Beranda"><img src="logo.png" alt=""></button>
+    <span>Waktu salat berikutnya</span>
+    <button class="sv-btn" id="gps" aria-label="Lokasiku"><svg viewBox="0 0 24 24"><path d="M12 21s7-5.4 7-11a7 7 0 0 0-14 0c0 5.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></button>
+  </div>
+  <div class="sv-head">
+    <b class="locName sv-loc"></b>
+    <div class="sv-clock" id="shClock">--:--:--</div>
+    <div class="sv-next">Menuju <b id="shNext">…</b> · <span id="shCd">--:--:--</span></div>
+  </div>
+  <div class="sv-date"><small>Hari ini</small><span id="shDate"></span></div>
+  <div class="sv-panel"><div class="sv-list" id="timeList"><p class="muted">Memuat jadwal…</p></div></div>
+</div>
+
 <nav aria-label="Navigasi utama">
   <button data-v="home" class="on"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>Beranda</button>
   <button data-v="sholat"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg></span>Sholat</button>
@@ -1285,7 +1327,7 @@ if(acct)call('userMe').then(r=>{if(r&&r.auth===false){acct=null;save();paint()}}
     sh.dataset.ph=ph();
     $('#shNext').textContent=$('#nextName').textContent;
     $('#shCd').textContent=$('#cd').textContent;
-    $('#shDate').textContent=n.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'})+' · '+$('#hijri').textContent;
+    $('#shDate').innerHTML=esc(n.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'}))+'<br>'+esc($('#hijri').textContent);
   }
   upd();setInterval(upd,1000);
 })();
@@ -1383,7 +1425,33 @@ setTimeout(function(){loadReactions()},6000);
     t.scrollTo({left:i*w,behavior:'smooth'});
   },5000);
 })();
+
+/* ===== Tab Sholat layar penuh: tampil hanya di tab Sholat ===== */
+;(function(){
+  let last='';
+  const sh=$('#sh'),home=$('[data-v="home"]'),nb=home&&home.parentElement;
+  function centerNext(){
+    const l=$('#timeList'),n=l&&l.querySelector('.row.next');
+    if(l&&n)l.scrollTo({top:n.offsetTop-(l.clientHeight-n.offsetHeight)/2,behavior:'smooth'});
+  }
+  const _g=go;
+  go=function(v){
+    _g.apply(this,arguments);
+    const on=v==='sholat';
+    sh.hidden=!on;
+    if(nb)nb.style.display=on?'none':'';
+    if(on){last='';setTimeout(centerNext,350)}
+  };
+  $('#svBack').onclick=()=>go('home');
+  setInterval(()=>{
+    if(sh.hidden)return;
+    const n=$('#timeList .row.next');
+    if(n&&n.dataset.k!==last){last=n.dataset.k;centerNext()}
+  },2000);
+})();
 </script>
+
+
   
 </body>
 </html>
