@@ -649,6 +649,7 @@ body:has(#feed:not([hidden])) :is(header.top,#acctBtn){display:none}
 .cm-r button:disabled{opacity:.6}
 /* jadwal selesai */
 #ngTrack>.done{opacity:.6}
+.ngaji{margin-bottom:0!important;border-radius:0!important;padding-bottom:50px!important}
 
 
   
@@ -1362,6 +1363,26 @@ if(acct)call('userMe').then(r=>{if(r&&r.auth===false){acct=null;save();paint()}}
   <script>
 setTimeout(function(){loadReactions()},2500);
 setTimeout(function(){loadReactions()},6000);
+</script>
+
+<script>
+;(function(){
+  let idle=0,auto=0;
+  const el=()=>document.getElementById('bnTrack');
+  ['touchstart','pointerdown','wheel','mousedown'].forEach(ev=>document.addEventListener(ev,e=>{if(e.target.closest&&e.target.closest('#bnTrack'))idle=Date.now()},{passive:true,capture:true}));
+  document.addEventListener('scroll',e=>{if(e.target&&e.target.id==='bnTrack'&&Date.now()-auto>1200)idle=Date.now()},true);
+  setInterval(()=>{
+    const t=el();
+    if(!t||document.hidden||t.offsetParent===null||t.children.length<2)return;
+    if(Date.now()-idle<5000)return;
+    const r=t.getBoundingClientRect();
+    if(r.bottom<0||r.top>innerHeight)return;
+    const w=t.children[0].offsetWidth+12;
+    let i=Math.round(t.scrollLeft/w)+1;if(i>=t.children.length)i=0;
+    auto=Date.now();
+    t.scrollTo({left:i*w,behavior:'smooth'});
+  },5000);
+})();
 </script>
   
 </body>
